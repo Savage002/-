@@ -1,0 +1,858 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "ZQAI API",
+    "description": "REST API for the ZQAI portal (news, events, managers, departments, compliance officer, reception schedule, file uploads and user/auth management). Backend: Express 5 + PostgreSQL.\n\nNOTE: BearerAuth is documented as the intended security scheme for state-changing and administrative operations, but the current implementation does NOT enforce any authentication middleware. The live scan is expected to reveal this as a broken-authentication / broken-function-level-authorization finding.",
+    "version": "0.0.0"
+  },
+  "servers": [
+    { "url": "http://localhost:3001", "description": "Local development server" }
+  ],
+  "tags": [
+    { "name": "Auth", "description": "Authentication and user management" },
+    { "name": "News", "description": "News articles and their images" },
+    { "name": "Managers", "description": "Management team members" },
+    { "name": "Events", "description": "Events / calendar entries" },
+    { "name": "Departments", "description": "Departments, divisions and sectors" },
+    { "name": "ComplianceOfficer", "description": "Compliance officer information" },
+    { "name": "Reception", "description": "Reception schedule" },
+    { "name": "Logs", "description": "System audit logs" },
+    { "name": "Upload", "description": "File uploads" },
+    { "name": "Health", "description": "Service health" }
+  ],
+  "paths": {
+    "/api/health": {
+      "get": {
+        "operationId": "getHealth",
+        "summary": "Health check",
+        "tags": ["Health"],
+        "responses": {
+          "200": {
+            "description": "Service healthy",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Health" } } }
+          },
+          "500": { "description": "Database disconnected" }
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "operationId": "login",
+        "summary": "Authenticate a user and issue a JWT",
+        "tags": ["Auth"],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/LoginRequest" } } }
+        },
+        "responses": {
+          "200": {
+            "description": "Authentication successful",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/LoginResponse" } } }
+          },
+          "400": { "description": "Bad request" },
+          "401": { "description": "Invalid credentials" },
+          "500": { "description": "Server error" }
+        }
+      }
+    },
+    "/api/auth/register": {
+      "post": {
+        "operationId": "register",
+        "summary": "Create a new user (should be admin-only)",
+        "tags": ["Auth"],
+        "security": [{ "BearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/RegisterRequest" } } }
+        },
+        "responses": {
+          "201": {
+            "description": "User created",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UserWrapper" } } }
+          },
+          "400": { "description": "username, password and role are required" },
+          "401": { "description": "Unauthorized" },
+          "409": { "description": "User already exists" },
+          "500": { "description": "Server error" }
+        }
+      }
+    },
+    "/api/auth/users": {
+      "get": {
+        "operationId": "getUsers",
+        "summary": "List all users (should be admin-only)",
+        "tags": ["Auth"],
+        "security": [{ "BearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "List of users",
+            "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/User" } } } }
+          },
+          "401": { "description": "Unauthorized" },
+          "500": { "description": "Server error" }
+        }
+      }
+    },
+    "/api/auth/users/{id}/password": {
+      "patch": {
+        "operationId": "changeUserPassword",
+        "summary": "Change a user's password (should be admin/self-only)",
+        "tags": ["Auth"],
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer", "format": "int64" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/PasswordChangeRequest" } } }
+        },
+        "responses": {
+          "200": {
+            "description": "Password updated",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Message" } } }
+          },
+          "400": { "description": "Password too short" },
+          "401": { "description": "Unauthorized" },
+          "404": { "description": "User not found" },
+          "500": { "description": "Server error" }
+        }
+      }
+    },
+    "/api/auth/users/{id}": {
+      "delete": {
+        "operationId": "deleteUser",
+        "summary": "Delete a user (should be admin-only)",
+        "tags": ["Auth"],
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer", "format": "int64" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "User deleted",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Message" } } }
+          },
+          "401": { "description": "Unauthorized" },
+          "404": { "description": "User not found" },
+          "500": { "description": "Server error" }
+        }
+      }
+    },
+    "/api/news": {
+      "get": {
+        "operationId": "getNews",
+        "summary": "List news articles",
+        "tags": ["News"],
+        "parameters": [
+          { "name": "limit", "in": "query", "required": false, "schema": { "type": "integer", "format": "int64" } },
+          { "name": "lang", "in": "query", "required": false, "schema": { "type": "string", "enum": ["ru", "kk", "en"] } }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of news",
+            "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/News" } } } }
+          },
+          "500": { "description": "Failed to fetch news" }
+        }
+      },
+      "post": {
+        "operationId": "createNews",
+        "summary": "Create a news article (should be authenticated)",
+        "tags": ["News"],
+        "security": [{ "BearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/NewsCreateRequest" } } }
+        },
+        "responses": {
+          "201": {
+            "description": "News created",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/NewsCreated" } } }
+          },
+          "400": { "description": "Bad request" },
+          "401": { "description": "Unauthorized" },
+          "500": { "description": "Failed to create news" }
+        }
+      }
+    },
+    "/api/news/{id}": {
+      "get": {
+        "operationId": "getNewsById",
+        "summary": "Get a single news article with images",
+        "tags": ["News"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer", "format": "int64" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "News item",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/News" } } }
+          },
+          "404": { "description": "News not found" },
+          "500": { "description": "Failed to fetch news detail" }
+        }
+      },
+      "put": {
+        "operationId": "updateNews",
+        "summary": "Update a news article (should be authenticated)",
+        "tags": ["News"],
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer", "format": "int64" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/NewsUpdateRequest" } } }
+        },
+        "responses": {
+          "200": {
+            "description": "News updated",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Message" } } }
+          },
+          "400": { "description": "Bad request" },
+          "401": { "description": "Unauthorized" },
+          "404": { "description": "News not found" },
+          "500": { "description": "Failed to update news" }
+        }
+      },
+      "delete": {
+        "operationId": "deleteNews",
+        "summary": "Delete a news article and its images (should be authenticated)",
+        "tags": ["News"],
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer", "format": "int64" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "News deleted",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Message" } } }
+          },
+          "401": { "description": "Unauthorized" },
+          "404": { "description": "News not found" },
+          "500": { "description": "Failed to delete news" }
+        }
+      }
+    },
+    "/api/news/{id}/images": {
+      "post": {
+        "operationId": "addNewsImages",
+        "summary": "Add images to an existing news article (should be authenticated)",
+        "tags": ["News"],
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer", "format": "int64" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/NewsImagesRequest" } } }
+        },
+        "responses": {
+          "200": {
+            "description": "Images added",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Message" } } }
+          },
+          "401": { "description": "Unauthorized" },
+          "500": { "description": "Failed to add images" }
+        }
+      }
+    },
+    "/api/news/{id}/images/{imgId}": {
+      "delete": {
+        "operationId": "deleteNewsImage",
+        "summary": "Remove a single image from a news article (should be authenticated)",
+        "tags": ["News"],
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer", "format": "int64" } },
+          { "name": "imgId", "in": "path", "required": true, "schema": { "type": "integer", "format": "int64" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Image deleted",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Message" } } }
+          },
+          "401": { "description": "Unauthorized" },
+          "500": { "description": "Failed to delete image" }
+        }
+      }
+    },
+    "/api/managers": {
+      "get": {
+        "operationId": "getManagers",
+        "summary": "List managers",
+        "tags": ["Managers"],
+        "parameters": [
+          { "name": "lang", "in": "query", "required": false, "schema": { "type": "string", "enum": ["ru", "kk", "en"] } }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of managers",
+            "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Manager" } } } }
+          },
+          "500": { "description": "Failed to fetch managers" }
+        }
+      },
+      "post": {
+        "operationId": "createManager",
+        "summary": "Create a manager (should be authenticated)",
+        "tags": ["Managers"],
+        "security": [{ "BearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ManagerRequest" } } }
+        },
+        "responses": {
+          "201": {
+            "description": "Manager created",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Manager" } } }
+          },
+          "401": { "description": "Unauthorized" },
+          "500": { "description": "Failed to create manager" }
+        }
+      }
+    },
+    "/api/managers/{id}": {
+      "put": {
+        "operationId": "updateManager",
+        "summary": "Update a manager (should be authenticated)",
+        "tags": ["Managers"],
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer", "format": "int64" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ManagerRequest" } } }
+        },
+        "responses": {
+          "200": {
+            "description": "Manager updated",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Manager" } } }
+          },
+          "401": { "description": "Unauthorized" },
+          "404": { "description": "Manager not found" },
+          "500": { "description": "Failed to update manager" }
+        }
+      },
+      "delete": {
+        "operationId": "deleteManager",
+        "summary": "Delete a manager (should be authenticated)",
+        "tags": ["Managers"],
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer", "format": "int64" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Manager deleted",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Message" } } }
+          },
+          "401": { "description": "Unauthorized" },
+          "404": { "description": "Manager not found" },
+          "500": { "description": "Failed to delete manager" }
+        }
+      }
+    },
+    "/api/events": {
+      "get": {
+        "operationId": "getEvents",
+        "summary": "List events",
+        "tags": ["Events"],
+        "parameters": [
+          { "name": "lang", "in": "query", "required": false, "schema": { "type": "string", "enum": ["ru", "kk", "en"] } }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of events",
+            "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Event" } } } }
+          },
+          "500": { "description": "Failed to fetch events" }
+        }
+      },
+      "post": {
+        "operationId": "createEvent",
+        "summary": "Create an event (should be authenticated)",
+        "tags": ["Events"],
+        "security": [{ "BearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/EventRequest" } } }
+        },
+        "responses": {
+          "201": {
+            "description": "Event created",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/EventWrapper" } } }
+          },
+          "401": { "description": "Unauthorized" },
+          "500": { "description": "Failed to create event" }
+        }
+      }
+    },
+    "/api/events/{id}": {
+      "get": {
+        "operationId": "getEventById",
+        "summary": "Get a single event",
+        "tags": ["Events"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer", "format": "int64" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Event",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Event" } } }
+          },
+          "404": { "description": "Event not found" },
+          "500": { "description": "Failed to fetch event details" }
+        }
+      },
+      "put": {
+        "operationId": "updateEvent",
+        "summary": "Update an event (should be authenticated)",
+        "tags": ["Events"],
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer", "format": "int64" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/EventRequest" } } }
+        },
+        "responses": {
+          "200": {
+            "description": "Event updated",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/EventWrapper" } } }
+          },
+          "401": { "description": "Unauthorized" },
+          "404": { "description": "Event not found" },
+          "500": { "description": "Failed to update event" }
+        }
+      },
+      "delete": {
+        "operationId": "deleteEvent",
+        "summary": "Delete an event (should be authenticated)",
+        "tags": ["Events"],
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer", "format": "int64" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Event deleted",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Message" } } }
+          },
+          "401": { "description": "Unauthorized" },
+          "404": { "description": "Event not found" },
+          "500": { "description": "Failed to delete event" }
+        }
+      }
+    },
+    "/api/departments": {
+      "get": {
+        "operationId": "getDepartments",
+        "summary": "List departments with nested divisions and sectors",
+        "tags": ["Departments"],
+        "responses": {
+          "200": {
+            "description": "List of departments",
+            "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Department" } } } }
+          },
+          "500": { "description": "Failed to fetch departments" }
+        }
+      }
+    },
+    "/api/departments/{id}": {
+      "get": {
+        "operationId": "getDepartmentById",
+        "summary": "Get a single department with nested divisions and sectors",
+        "tags": ["Departments"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer", "format": "int64" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Department",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Department" } } }
+          },
+          "404": { "description": "Department not found" },
+          "500": { "description": "Failed to fetch department" }
+        }
+      }
+    },
+    "/api/compliance-officer": {
+      "get": {
+        "operationId": "getComplianceOfficer",
+        "summary": "Get compliance officer info",
+        "tags": ["ComplianceOfficer"],
+        "responses": {
+          "200": {
+            "description": "Compliance officer",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ComplianceOfficer" } } }
+          },
+          "404": { "description": "Not found" },
+          "500": { "description": "Server error" }
+        }
+      },
+      "put": {
+        "operationId": "updateComplianceOfficer",
+        "summary": "Create or update compliance officer info (should be authenticated)",
+        "tags": ["ComplianceOfficer"],
+        "security": [{ "BearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ComplianceOfficerRequest" } } }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Message" } } }
+          },
+          "401": { "description": "Unauthorized" },
+          "500": { "description": "Server error" }
+        }
+      }
+    },
+    "/api/reception": {
+      "get": {
+        "operationId": "getReception",
+        "summary": "Get reception schedule",
+        "tags": ["Reception"],
+        "parameters": [
+          { "name": "lang", "in": "query", "required": false, "schema": { "type": "string", "enum": ["ru", "kk", "en"] } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Reception schedule entries",
+            "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/ReceptionEntry" } } } }
+          },
+          "500": { "description": "Failed to fetch reception data" }
+        }
+      }
+    },
+    "/api/logs": {
+      "get": {
+        "operationId": "getLogs",
+        "summary": "List system audit logs (should be admin-only)",
+        "tags": ["Logs"],
+        "security": [{ "BearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "List of log entries",
+            "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/LogEntry" } } } }
+          },
+          "401": { "description": "Unauthorized" },
+          "500": { "description": "Failed to fetch logs" }
+        }
+      }
+    },
+    "/api/upload": {
+      "post": {
+        "operationId": "uploadFile",
+        "summary": "Upload an image file (should be authenticated)",
+        "tags": ["Upload"],
+        "security": [{ "BearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "image": { "type": "string", "format": "binary" }
+                },
+                "required": ["image"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "File uploaded",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UploadResponse" } } }
+          },
+          "400": { "description": "No file uploaded" },
+          "401": { "description": "Unauthorized" },
+          "500": { "description": "Server error" }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "JWT issued by POST /api/auth/login. NOTE: not currently enforced by any server middleware."
+      }
+    },
+    "schemas": {
+      "Health": {
+        "type": "object",
+        "properties": {
+          "status": { "type": "string", "example": "ok" },
+          "database": { "type": "string", "example": "connected" }
+        }
+      },
+      "Message": {
+        "type": "object",
+        "properties": {
+          "message": { "type": "string" }
+        }
+      },
+      "LoginRequest": {
+        "type": "object",
+        "required": ["username", "password"],
+        "properties": {
+          "username": { "type": "string", "minLength": 1, "maxLength": 255, "example": "admin" },
+          "password": { "type": "string", "format": "password", "minLength": 1, "maxLength": 255, "example": "secret" }
+        }
+      },
+      "UserSummary": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int64" },
+          "username": { "type": "string" },
+          "role": { "type": "string" }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "token": { "type": "string" },
+          "user": { "$ref": "#/components/schemas/UserSummary" }
+        }
+      },
+      "RegisterRequest": {
+        "type": "object",
+        "required": ["username", "password", "role"],
+        "properties": {
+          "username": { "type": "string", "minLength": 1, "maxLength": 255 },
+          "password": { "type": "string", "format": "password", "minLength": 6, "maxLength": 255 },
+          "role": { "type": "string", "enum": ["admin", "reception", "compliance_officer", "manager"] },
+          "name": { "type": "string", "maxLength": 255 },
+          "surname": { "type": "string", "maxLength": 255 }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int64" },
+          "username": { "type": "string" },
+          "name": { "type": "string" },
+          "surname": { "type": "string" },
+          "role": { "type": "string" },
+          "created_at": { "type": "string", "format": "date-time" }
+        }
+      },
+      "UserWrapper": {
+        "type": "object",
+        "properties": {
+          "user": { "$ref": "#/components/schemas/UserSummary" }
+        }
+      },
+      "PasswordChangeRequest": {
+        "type": "object",
+        "required": ["password"],
+        "properties": {
+          "password": { "type": "string", "format": "password", "minLength": 6, "maxLength": 255 }
+        }
+      },
+      "News": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int64" },
+          "title": { "type": "string" },
+          "content": { "type": "string" },
+          "created_at": { "type": "string", "format": "date-time" },
+          "language": { "type": "string" },
+          "image_url": { "type": "string", "nullable": true },
+          "images": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "NewsCreateRequest": {
+        "type": "object",
+        "required": ["title", "content"],
+        "properties": {
+          "title": { "type": "string", "minLength": 1, "maxLength": 500 },
+          "content": { "type": "string" },
+          "images": { "type": "array", "items": { "type": "string" } },
+          "userId": { "type": "integer", "format": "int64" },
+          "language": { "type": "string", "enum": ["ru", "kk", "en"] }
+        }
+      },
+      "NewsUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string", "maxLength": 500 },
+          "content": { "type": "string" },
+          "language": { "type": "string", "enum": ["ru", "kk", "en"] }
+        }
+      },
+      "NewsCreated": {
+        "type": "object",
+        "properties": {
+          "message": { "type": "string" },
+          "newsId": { "type": "integer", "format": "int64" }
+        }
+      },
+      "NewsImagesRequest": {
+        "type": "object",
+        "required": ["images"],
+        "properties": {
+          "images": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "Manager": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int64" },
+          "name": { "type": "string" },
+          "role": { "type": "string" },
+          "image_url": { "type": "string", "nullable": true },
+          "photo_url": { "type": "string", "nullable": true },
+          "language": { "type": "string" },
+          "display_order": { "type": "integer", "format": "int64" },
+          "reception_day": { "type": "string", "nullable": true },
+          "reception_time": { "type": "string", "nullable": true }
+        }
+      },
+      "ManagerRequest": {
+        "type": "object",
+        "required": ["name", "role"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1, "maxLength": 255 },
+          "role": { "type": "string", "maxLength": 255 },
+          "image_url": { "type": "string", "nullable": true },
+          "language": { "type": "string", "enum": ["ru", "kk", "en"] },
+          "display_order": { "type": "integer", "format": "int64" }
+        }
+      },
+      "Event": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int64" },
+          "title": { "type": "string" },
+          "event_date": { "type": "string", "format": "date" },
+          "time": { "type": "string", "nullable": true },
+          "location": { "type": "string", "nullable": true },
+          "language": { "type": "string" },
+          "news_id": { "type": "integer", "format": "int64", "nullable": true },
+          "created_at": { "type": "string", "format": "date-time" }
+        }
+      },
+      "EventRequest": {
+        "type": "object",
+        "required": ["title", "event_date"],
+        "properties": {
+          "title": { "type": "string", "minLength": 1, "maxLength": 255 },
+          "event_date": { "type": "string", "format": "date" },
+          "time": { "type": "string", "maxLength": 50, "nullable": true },
+          "location": { "type": "string", "maxLength": 255, "nullable": true },
+          "language": { "type": "string", "enum": ["ru", "kk", "en"] },
+          "news_id": { "type": "integer", "format": "int64", "nullable": true }
+        }
+      },
+      "EventWrapper": {
+        "type": "object",
+        "properties": {
+          "message": { "type": "string" },
+          "event": { "$ref": "#/components/schemas/Event" }
+        }
+      },
+      "Sector": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int64" },
+          "division_id": { "type": "integer", "format": "int64" },
+          "name_ru": { "type": "string" },
+          "name_kk": { "type": "string" },
+          "head_full_name": { "type": "string", "nullable": true },
+          "head_title_ru": { "type": "string", "nullable": true },
+          "head_title_kk": { "type": "string", "nullable": true }
+        }
+      },
+      "Division": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int64" },
+          "department_id": { "type": "integer", "format": "int64" },
+          "name_ru": { "type": "string" },
+          "name_kk": { "type": "string" },
+          "head_full_name": { "type": "string", "nullable": true },
+          "head_title_ru": { "type": "string", "nullable": true },
+          "head_title_kk": { "type": "string", "nullable": true },
+          "sectors": { "type": "array", "items": { "$ref": "#/components/schemas/Sector" } }
+        }
+      },
+      "Department": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int64" },
+          "name_ru": { "type": "string" },
+          "name_kk": { "type": "string" },
+          "director_full_name": { "type": "string", "nullable": true },
+          "director_title_ru": { "type": "string", "nullable": true },
+          "director_title_kk": { "type": "string", "nullable": true },
+          "divisions": { "type": "array", "items": { "$ref": "#/components/schemas/Division" } }
+        }
+      },
+      "ComplianceOfficer": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int64" },
+          "full_name": { "type": "string" },
+          "position": { "type": "string" },
+          "phone": { "type": "string", "nullable": true },
+          "email": { "type": "string", "format": "email", "nullable": true },
+          "reception_schedule": { "type": "string", "nullable": true },
+          "photo_url": { "type": "string", "nullable": true },
+          "description": { "type": "string", "nullable": true },
+          "updated_at": { "type": "string", "format": "date-time" }
+        }
+      },
+      "ComplianceOfficerRequest": {
+        "type": "object",
+        "required": ["full_name", "position"],
+        "properties": {
+          "full_name": { "type": "string", "minLength": 1, "maxLength": 255 },
+          "position": { "type": "string", "maxLength": 255 },
+          "phone": { "type": "string", "maxLength": 50, "nullable": true },
+          "email": { "type": "string", "format": "email", "nullable": true },
+          "reception_schedule": { "type": "string", "nullable": true },
+          "photo_url": { "type": "string", "nullable": true },
+          "description": { "type": "string", "nullable": true }
+        }
+      },
+      "ReceptionEntry": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int64" },
+          "name": { "type": "string" },
+          "role": { "type": "string" },
+          "photo_url": { "type": "string", "nullable": true },
+          "image_url": { "type": "string", "nullable": true },
+          "reception_day": { "type": "string", "nullable": true },
+          "reception_time": { "type": "string", "nullable": true },
+          "display_order": { "type": "integer", "format": "int64" }
+        }
+      },
+      "LogEntry": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int64" },
+          "event_type": { "type": "string" },
+          "user_id": { "type": "integer", "format": "int64", "nullable": true },
+          "details": { "type": "string" },
+          "created_at": { "type": "string", "format": "date-time" }
+        }
+      },
+      "UploadResponse": {
+        "type": "object",
+        "properties": {
+          "imageUrl": { "type": "string" }
+        }
+      }
+    }
+  }
+}

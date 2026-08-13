@@ -1,0 +1,379 @@
+/* ══ COOPERATION PAGE ═══════════════════════════════ */
+.coop-page-new {
+    background: #fff;
+}
+
+.coop-hero {
+    position: relative;
+    background: linear-gradient(135deg, var(--navy-800) 0%, var(--navy-950) 100%);
+    padding: 5.5rem 2rem 4rem;
+    text-align: center;
+    overflow: hidden;
+}
+
+.coop-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='40' cy='40' r='30'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.coop-hero-content {
+    position: relative;
+    max-width: 720px;
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.coop-hero-content.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+.coop-hero-content h1 {
+    color: #fff;
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+}
+
+.coop-hero-content p {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+.coop-directions {
+    padding: 5rem 2rem;
+}
+
+.coop-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.coop-section-block {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.coop-section-block.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+.coop-section-title {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--navy-900);
+    margin-bottom: 2rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 3px solid var(--gold-500);
+    display: inline-block;
+}
+
+.coop-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+}
+
+.coop-dir-card {
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 16px;
+    padding: 1.75rem;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.55s ease, transform 0.55s ease, box-shadow 0.25s;
+}
+
+.coop-dir-card.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+.coop-dir-card:hover {
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px) !important;
+}
+
+.coop-dir-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+}
+
+.coop-dir-card h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.coop-dir-card p {
+    font-size: 0.86rem;
+    color: #667;
+    line-height: 1.65;
+}
+
+.coop-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.coop-dir-card:hover .coop-bar {
+    transform: scaleX(1);
+}
+
+/* Partners */
+.coop-partners-section {
+    background: var(--surface-page);
+    padding: 4rem 2rem;
+}
+
+.partners-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.partners-stat {
+    background: linear-gradient(135deg, rgba(199, 154, 59, 0.08), rgba(11, 46, 89, 0.06));
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    min-width: 160px;
+    text-align: center;
+}
+
+.partners-stat strong {
+    display: block;
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: var(--navy-900);
+}
+
+.partners-stat span {
+    font-size: 0.8rem;
+    color: #667;
+}
+
+.partners-region-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.75rem;
+}
+
+.partners-region-tab {
+    background: #fff;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 20px;
+    padding: 0.4rem 1.1rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #556;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.partners-region-tab:hover {
+    border-color: var(--gold-500);
+    color: var(--gold-600, #ab8130);
+}
+
+.partners-region-tab.active {
+    background: var(--navy-900, #0B2E59);
+    border-color: var(--navy-900, #0B2E59);
+    color: #fff;
+}
+
+.partners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.partner-item {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    font-size: 0.9rem;
+    color: #334;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.25s, border-color 0.25s;
+}
+
+.partner-item.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+.partner-item:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    border-color: var(--gold-500);
+}
+
+.partner-flag {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+}
+
+/* Forums */
+.coop-forums {
+    padding: 4rem 2rem;
+}
+
+.forum-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.forum-item {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    background: #fafafa;
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    border-left: 4px solid var(--gold-500);
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.forum-item.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+.forum-year {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--gold-500);
+    flex-shrink: 0;
+    min-width: 60px;
+}
+
+.forum-body strong {
+    font-size: 0.92rem;
+    color: var(--navy-900);
+}
+
+.forum-body p {
+    font-size: 0.87rem;
+    color: #667;
+    margin: 2px 0 0;
+}
+
+@media (max-width: 1024px) {
+    .coop-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .coop-hero {
+        padding: 3.5rem 1.25rem 2.5rem;
+    }
+
+    .coop-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .coop-hero-content h1 {
+        font-size: 1.8rem;
+    }
+
+    .coop-directions {
+        padding: 3rem 1.25rem;
+    }
+
+    .coop-partners-section {
+        padding: 2.5rem 1.25rem;
+    }
+
+    .coop-forums {
+        padding: 2.5rem 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .coop-hero {
+        padding: 3rem 1rem 2rem;
+    }
+
+    .coop-hero-content h1 {
+        font-size: 1.45rem;
+    }
+
+    .coop-hero-content p {
+        font-size: 0.88rem;
+    }
+
+    .coop-directions {
+        padding: 2rem 1rem;
+    }
+
+    .coop-section-title {
+        font-size: 1.4rem;
+    }
+
+    .forum-item {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1rem;
+    }
+
+    .forum-year {
+        font-size: 1.1rem;
+    }
+
+    .coop-dir-card {
+        padding: 1.25rem;
+    }
+
+    .partner-item {
+        padding: 0.75rem 1rem;
+        font-size: 0.85rem;
+    }
+
+    .partners-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .partners-stats {
+        gap: 0.75rem;
+    }
+
+    .partners-stat {
+        min-width: 130px;
+        padding: 0.75rem 1rem;
+    }
+
+    .partners-stat strong {
+        font-size: 1.35rem;
+    }
+}

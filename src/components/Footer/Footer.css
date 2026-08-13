@@ -1,0 +1,177 @@
+.footer {
+    position: relative;
+    background-color: var(--navy-950);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 900px 900px;
+    background-blend-mode: overlay;
+    color: #c0c8d0;
+    padding: 0;
+    margin-top: auto;
+    border-top: 3px solid var(--gold-500);
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.footer-top {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    align-items: start;
+    padding: 2.5rem 0 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    gap: 2.5rem;
+}
+
+.footer-col strong {
+    display: block;
+    font-size: 0.95rem;
+    color: #fff;
+    margin-bottom: 0.9rem;
+    line-height: 1.4;
+}
+
+.footer-col h4 {
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--gold-500);
+    margin-bottom: 0.9rem;
+    font-weight: 700;
+}
+
+.footer-contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1.1rem;
+}
+
+.footer-contacts span {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-links a {
+    font-size: 0.85rem;
+}
+
+.footer-social {
+    display: flex;
+    gap: 0.6rem;
+}
+
+.footer-social-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    transition: background 0.15s, color 0.15s, transform 0.15s;
+}
+
+.footer-social-icon:hover {
+    background: var(--gold-500);
+    color: var(--navy-950);
+    transform: translateY(-2px);
+}
+
+.footer a {
+    color: var(--steel-300);
+    text-decoration: none;
+    transition: color 0.15s;
+}
+
+.footer a:hover {
+    color: #fff;
+}
+
+.footer-bottom {
+    padding: 1.1rem 0;
+}
+
+.footer-bottom p {
+    margin: 0;
+    font-size: 0.78rem;
+    opacity: 0.5;
+    text-align: center;
+}
+
+/* ── Кнопка "наверх" ─────────────────────────────── */
+.footer-top-btn {
+    position: fixed;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    background: var(--gold-500);
+    color: var(--navy-950);
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.2s, transform 0.2s, visibility 0.2s, background 0.15s;
+    z-index: 500;
+}
+
+.footer-top-btn.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.footer-top-btn:hover {
+    background: var(--gold-600, #ab8130);
+}
+
+@media (max-width: 768px) {
+    .footer-top {
+        grid-template-columns: 1fr;
+        gap: 1.75rem;
+    }
+
+    .footer-content {
+        padding: 0 1.25rem;
+    }
+
+    .footer-top-btn {
+        right: 1rem;
+        bottom: 1rem;
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-content {
+        padding: 0 1rem;
+    }
+
+    .footer-col strong {
+        font-size: 0.86rem;
+    }
+
+    .footer-bottom p {
+        font-size: 0.72rem;
+    }
+}

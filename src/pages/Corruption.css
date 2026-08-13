@@ -1,0 +1,391 @@
+/* ══ CORRUPTION (ANTICOR) PAGE ═══════════════════════ */
+.corruption-page-new {
+    background: #fff;
+}
+
+.anticor-hero {
+    position: relative;
+    background: linear-gradient(135deg, var(--navy-900) 0%, #0f1823 100%);
+    padding: 5.5rem 2rem 4rem;
+    text-align: center;
+    overflow: hidden;
+}
+
+.anticor-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.anticor-hero-content {
+    position: relative;
+    max-width: 720px;
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.anticor-hero-content.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+.anticor-hero-content h1 {
+    color: #fff;
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+}
+
+.anticor-hero-content p {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+/* Hotline */
+.anticor-hotline {
+    padding: 2.5rem 2rem;
+    background: var(--surface-page);
+}
+
+.hotline-card {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, var(--steel-600) 0%, var(--navy-950) 100%);
+    border-radius: 18px;
+    padding: 2.5rem;
+    color: #fff;
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    box-shadow: 0 8px 32px rgba(60, 88, 120, 0.2);
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.hotline-card.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+.hotline-icon {
+    font-size: 3rem;
+    flex-shrink: 0;
+}
+
+.hotline-text h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 0.4rem;
+}
+
+.hotline-text p {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 1rem;
+}
+
+.hotline-contacts {
+    display: flex;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.hotline-contact-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.65rem 1.4rem;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.hotline-contact-btn.email {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.hotline-contact-btn.phone {
+    background: #fff;
+    color: var(--steel-600);
+}
+
+.hotline-contact-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.hotline-note {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Standards */
+.anticor-standards-section {
+    padding: 4rem 2rem;
+}
+
+.anticor-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.anticor-sec-header {
+    margin-bottom: 2.25rem;
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.anticor-sec-header.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+.anticor-sec-header h2 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--navy-900);
+    margin-top: 0.4rem;
+}
+
+.anticor-standards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+}
+
+.standard-card {
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 14px;
+    padding: 1.4rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.25s;
+}
+
+.standard-card.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+.standard-card:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    border-color: var(--gold-500)33;
+}
+
+.standard-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.standard-card p {
+    font-size: 0.87rem;
+    color: #445;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Documents */
+.anticor-docs-section {
+    background: var(--surface-page);
+    padding: 4rem 2rem;
+}
+
+.anticor-docs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.doc-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 1rem 1.4rem;
+    text-decoration: none;
+    color: #334;
+    opacity: 0;
+    transform: translateX(-16px);
+    transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.25s, color 0.2s;
+}
+
+.doc-item.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+.doc-item:hover {
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.09);
+    color: var(--gold-500);
+}
+
+.doc-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.doc-title {
+    flex: 1;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.doc-arrow {
+    font-size: 0.8rem;
+    color: var(--gold-500);
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* Agency */
+.anticor-agency-section {
+    padding: 4rem 2rem;
+}
+
+.agency-card {
+    background: linear-gradient(135deg, var(--surface-page), #eef0f5);
+    border: 1px solid #e0e4ea;
+    border-radius: 18px;
+    padding: 2.5rem;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.agency-card.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+.agency-card h3 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--navy-900);
+    margin-bottom: 0.6rem;
+}
+
+.agency-card p {
+    color: #667;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
+.agency-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--gold-500), var(--gold-600));
+    color: var(--navy-950);
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 0.8rem 2rem;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 16px rgba(11, 46, 89, 0.2);
+}
+
+.agency-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(11, 46, 89, 0.3);
+    color: var(--navy-950);
+}
+
+@media (max-width: 1024px) {
+    .anticor-standards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .anticor-hero {
+        padding: 3.5rem 1.25rem 2.5rem;
+    }
+
+    .anticor-hero-content h1 {
+        font-size: 1.8rem;
+    }
+
+    .hotline-card {
+        flex-direction: column;
+    }
+
+    .anticor-standards-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .anticor-standards-section {
+        padding: 2.5rem 1.25rem;
+    }
+
+    .anticor-docs-section {
+        padding: 2.5rem 1.25rem;
+    }
+
+    .anticor-agency-section {
+        padding: 2.5rem 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .anticor-hero {
+        padding: 2.5rem 1rem 2rem;
+    }
+
+    .anticor-hero-content h1 {
+        font-size: 1.45rem;
+    }
+
+    .anticor-hero-content p {
+        font-size: 0.88rem;
+    }
+
+    .hotline-card {
+        padding: 1.25rem;
+    }
+
+    .hotline-contacts {
+        flex-direction: column;
+    }
+
+    .hotline-contact-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .hotline-text h2 {
+        font-size: 1.2rem;
+    }
+
+    .agency-card {
+        padding: 1.5rem;
+    }
+
+    .anticor-standards-section,
+    .anticor-docs-section,
+    .anticor-agency-section {
+        padding: 2rem 1rem;
+    }
+
+    .doc-item {
+        padding: 0.85rem 1rem;
+    }
+
+    .standard-card {
+        padding: 1.1rem;
+    }
+}

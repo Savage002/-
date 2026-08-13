@@ -1,0 +1,460 @@
+/* ══ BRANCHES PAGE ══════════════════════════════════ */
+.branches-page-new {
+    background: #fff;
+}
+
+/* Hero */
+.branches-hero {
+    background: linear-gradient(135deg, var(--navy-900) 0%, #0d3d2e 60%, #155a43 100%);
+    padding: 5rem 2rem 3.5rem;
+    text-align: center;
+}
+
+.branches-hero-content {
+    max-width: 720px;
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.branches-hero-content.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+.branches-hero-content h1 {
+    color: #fff;
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+}
+
+.branches-hero-content p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
+.branches-count-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    padding: 6px 20px;
+    border-radius: 22px;
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+
+.page-eyebrow {
+    display: block;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+/* Search */
+.branches-search-bar {
+    background: #fff;
+    padding: 1.25rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    border-bottom: 1px solid #eee;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.branches-search-wrap {
+    position: relative;
+    flex: 1;
+    max-width: 480px;
+    display: flex;
+    align-items: center;
+    background: var(--surface-page);
+    border-radius: 10px;
+    border: 1.5px solid #e0e0e0;
+}
+
+.branches-search-wrap:focus-within {
+    border-color: var(--gold-500);
+}
+
+.search-icon {
+    position: absolute;
+    left: 12px;
+    font-size: 1.1rem;
+    pointer-events: none;
+}
+
+.branches-search-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 0.7rem 2.5rem 0.7rem 2.4rem;
+    font-size: 0.92rem;
+    color: #333;
+}
+
+.search-clear {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #999;
+    font-size: 1rem;
+    padding: 4px;
+}
+
+.branches-found {
+    font-size: 0.82rem;
+    color: #888;
+    white-space: nowrap;
+}
+
+/* Grid */
+.branches-container {
+    padding: 2.5rem 2rem 5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.branches-grid-new {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 1.25rem;
+}
+
+.branch-card-new {
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 14px;
+    padding: 1.4rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.25s, border-color 0.25s;
+}
+
+.branch-card-new.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+.branch-card-new:hover {
+    box-shadow: 0 8px 28px rgba(11, 46, 89, 0.1);
+    border-color: var(--gold-500)33;
+    transform: translateY(-3px) !important;
+}
+
+.branch-icon-wrap {
+    font-size: 1.75rem;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, rgba(199, 154, 59, 0.07), rgba(11, 46, 89, 0.12));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.branch-info {
+    flex: 1;
+}
+
+.branch-city-region {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+}
+
+.branch-city-region h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--navy-900);
+    margin: 0;
+}
+
+.branch-region {
+    font-size: 0.75rem;
+    color: var(--gold-500);
+    font-weight: 600;
+}
+
+.branch-address {
+    font-size: 0.82rem;
+    color: #667;
+    margin: 0 0 0.5rem;
+}
+
+.branch-contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.branch-phone,
+.branch-email {
+    font-size: 0.82rem;
+    color: #445;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.branch-phone:hover,
+.branch-email:hover {
+    color: var(--gold-500);
+}
+
+.branches-empty {
+    text-align: center;
+    padding: 4rem;
+    color: #aaa;
+    font-size: 1.1rem;
+}
+
+.branches-empty span {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 0.75rem;
+}
+
+/* ══ INTERACTIVE MAP ══════════════════════════════════ */
+.branches-map-section {
+    background: #f7f9fb;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid #eef1f4;
+}
+
+.branches-map-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.branches-map-panel {
+    width: 100%;
+    max-width: 620px;
+    aspect-ratio: 16 / 10;
+    background: linear-gradient(135deg, #ffffff 0%, #eef3f0 100%);
+    border: 1px solid #dfe6e2;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(11, 46, 89, 0.06);
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.branches-map-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(11, 46, 89, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(11, 46, 89, 0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
+    pointer-events: none;
+}
+
+.branches-map-silhouette {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    /* Условный, упрощённый силуэт территории РК */
+    background: linear-gradient(160deg, #1f6b4d, #14503a);
+    clip-path: polygon(
+        4% 55%, 8% 40%, 16% 28%, 26% 14%, 40% 8%, 55% 6%, 68% 12%,
+        80% 10%, 92% 20%, 97% 34%, 94% 48%, 98% 60%, 90% 72%,
+        82% 80%, 74% 92%, 60% 96%, 48% 90%, 38% 96%, 26% 88%,
+        16% 78%, 8% 68%
+    );
+    box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.15);
+}
+
+.branch-pin {
+    position: absolute;
+    transform: translate(-50%, -100%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    z-index: 2;
+}
+
+.branch-pin-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--gold-500);
+    border: 2px solid #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+    display: block;
+    transition: transform 0.15s, background 0.15s;
+}
+
+.branch-pin-label {
+    margin-top: 4px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #fff;
+    background: rgba(11, 46, 89, 0.85);
+    padding: 1px 7px;
+    border-radius: 3px;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity 0.15s, transform 0.15s;
+    pointer-events: none;
+}
+
+.branch-pin:hover .branch-pin-dot,
+.branch-pin.active .branch-pin-dot {
+    transform: scale(1.35);
+    background: #fff;
+}
+
+.branch-pin:hover .branch-pin-label,
+.branch-pin.active .branch-pin-label {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.branch-pin.active .branch-pin-label {
+    background: var(--gold-600, #ab8130);
+}
+
+.branches-map-hint {
+    font-size: 0.85rem;
+    color: #667;
+    text-align: center;
+}
+
+/* Активная карточка при выборе на карте */
+.branch-card-new.is-active {
+    border-color: var(--gold-500);
+    box-shadow: 0 8px 28px rgba(199, 154, 59, 0.25);
+}
+
+.branch-more-btn {
+    margin-top: 0.6rem;
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--navy-900, #0B2E59);
+    cursor: pointer;
+}
+
+.branch-more-btn:hover {
+    color: var(--gold-500);
+}
+
+.branch-activities {
+    margin-top: 0.6rem;
+    font-size: 0.82rem;
+    color: #556;
+    line-height: 1.55;
+    border-top: 1px dashed #dde3e8;
+    padding-top: 0.6rem;
+}
+
+@media (max-width: 1024px) {
+    .branches-grid-new {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .branches-hero {
+        padding: 3.5rem 1.25rem 2.5rem;
+    }
+
+    .branches-hero-content h1 {
+        font-size: 1.8rem;
+    }
+
+    .branches-grid-new {
+        grid-template-columns: 1fr;
+    }
+
+    .branches-search-bar {
+        flex-direction: column;
+        align-items: stretch;
+        top: 60px;
+        padding: 1rem 1.25rem;
+    }
+
+    .branches-search-wrap {
+        max-width: 100%;
+    }
+
+    .branches-container {
+        padding: 2rem 1.25rem 3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .branches-map-panel {
+        padding: 1rem;
+        border-radius: 14px;
+    }
+
+    .branch-pin-label {
+        font-size: 0.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .branches-hero {
+        padding: 3rem 1rem 2rem;
+    }
+
+    .branches-hero-content h1 {
+        font-size: 1.5rem;
+    }
+
+    .branches-hero-content p {
+        font-size: 0.88rem;
+    }
+
+    .branches-search-bar {
+        top: 56px;
+        padding: 0.75rem 1rem;
+    }
+
+    .branches-container {
+        padding: 1.5rem 1rem 3rem;
+    }
+
+    .branch-card-new {
+        padding: 1rem;
+    }
+
+    .branch-icon-wrap {
+        width: 42px;
+        height: 42px;
+        font-size: 1.5rem;
+        border-radius: 10px;
+    }
+
+    .branch-city-region h3 {
+        font-size: 0.95rem;
+    }
+}

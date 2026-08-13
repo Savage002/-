@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in your .env file}
+      POSTGRES_DB: ${DB_NAME:-zqai_db}
+    ports:
+      # Bound to loopback only — Postgres must never be reachable from outside
+      # this host. The backend container reaches it over the internal Docker
+      # network (service name "db"), which does not go through this mapping.
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./dump.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-zqai_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=${DB_USER:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:?Set DB_PASSWORD in your .env file}
+      - DB_NAME=${DB_NAME:-zqai_db}
+      - JWT_SECRET=${JWT_SECRET:?Set JWT_SECRET in your .env file (openssl rand -base64 48)}
+      - CORS_ORIGIN=${CORS_ORIGIN:-http://localhost:5005}
+      - NODE_ENV=${NODE_ENV:-production}
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./public/uploads:/app/public/uploads
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    restart: always
+    ports:
+      - "5005:5000"
+    environment:
+      - VITE_API_TARGET=http://backend:3001
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:

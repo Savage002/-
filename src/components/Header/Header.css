@@ -1,0 +1,542 @@
+/* ════════════════════════════════════════════════════════════
+   Шапка ZQAI — строгий государственный стиль
+   Два уровня (как на akorda.kz / gov.kz):
+   1) узкая служебная полоса: язык, вход
+   2) основная полоса: знак + полное название + навигация
+   ════════════════════════════════════════════════════════════ */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    background: var(--navy-900);
+    border-bottom: 2px solid var(--gold-500);
+    box-shadow: 0 2px 12px rgba(6, 31, 23, 0.35);
+}
+
+/* ── Верхняя служебная полоса ──────────────────────── */
+.header-topbar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 34px;
+    padding: 0 2rem;
+    background: var(--navy-950);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    font-size: 0.72rem;
+}
+
+.topbar-note {
+    color: var(--steel-300);
+    letter-spacing: 0.04em;
+}
+
+.topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+}
+
+.topbar-actions a,
+.topbar-link {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.72rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.15s;
+}
+
+.topbar-actions a:hover,
+.topbar-link:hover {
+    color: var(--gold-500);
+}
+
+.topbar-sep {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.lang-switch {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.7rem;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    padding: 2px 10px;
+    border-radius: 2px;
+    user-select: none;
+    color: #ffffff;
+    background: transparent;
+    transition: all 0.15s;
+    letter-spacing: 0.06em;
+    min-height: 0;
+}
+
+.lang-switch:hover {
+    background-color: var(--gold-500);
+    border-color: var(--gold-500);
+    color: var(--navy-950);
+}
+
+/* ── Основная полоса ───────────────────────────────── */
+.header-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    height: 88px;
+    padding: 0 2rem;
+}
+
+/* Бренд-блок: знак + название (госстандарт: герб + ведомство) */
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+    min-width: 0;
+}
+
+.brand-mark {
+    height: 68px;
+    width: auto;
+    flex-shrink: 0;
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 4px 6px;
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.25;
+    min-width: 0;
+}
+
+.brand-text strong {
+    font-family: var(--font-display);
+    font-size: 1.24rem;
+    font-weight: 800;
+    color: var(--gold-500);
+    letter-spacing: 0.18em;
+}
+
+.brand-name {
+    font-size: 0.76rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.78);
+    max-width: 340px;
+    letter-spacing: 0.01em;
+}
+
+/* ── Навигация ─────────────────────────────────────── */
+.nav {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+}
+
+.nav>ul {
+    display: flex;
+    gap: 0.1rem;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    flex-wrap: nowrap;
+}
+
+.nav ul>li {
+    position: relative;
+}
+
+.nav ul>li>a,
+.nav ul>li>span,
+.nav ul>li.dropdown {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: #ffffff;
+    padding: 0.5rem 0.65rem;
+    border-radius: 2px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: color 0.15s, background-color 0.15s;
+    white-space: nowrap;
+    cursor: pointer;
+    font-family: var(--font-ui);
+    letter-spacing: -0.01em;
+}
+
+.nav ul>li>a:hover,
+.nav ul>li.dropdown:hover {
+    color: var(--gold-500);
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Пункты только для мобильного бургер-меню */
+.nav ul>li.mobile-only {
+    display: none;
+}
+
+/* Dropdown */
+.dropdown {
+    position: relative;
+    cursor: pointer;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: #ffffff;
+    padding: 0.5rem 0.65rem;
+    border-radius: 2px;
+    transition: color 0.15s, background-color 0.15s;
+}
+
+.dropdown:hover {
+    color: var(--gold-500);
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.dropdown-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+}
+
+.dropdown-arrow {
+    font-size: 0.6rem;
+    transition: transform 0.2s ease;
+}
+
+.dropdown-arrow.open {
+    transform: rotate(180deg);
+}
+
+.dropdown-content {
+    display: none !important;
+    position: absolute;
+    background-color: var(--navy-800);
+    min-width: 220px;
+    box-shadow: 0 8px 22px rgba(6, 31, 23, 0.45);
+    z-index: 2000;
+    top: 100%;
+    left: 0;
+    padding: 4px 0;
+    border-radius: 0 0 3px 3px;
+    border: 1px solid var(--navy-950);
+    border-top: 2px solid var(--gold-500);
+}
+
+.dropdown-content li {
+    padding: 0;
+    display: block;
+}
+
+.dropdown-content li a {
+    display: block;
+    padding: 8px 16px;
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 400;
+    transition: background-color 0.12s, color 0.12s;
+}
+
+.dropdown-content li a:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: var(--gold-500);
+}
+
+.dropdown:hover .dropdown-content {
+    display: block !important;
+}
+
+/* ══ BURGER BUTTON ══════════════════════════════════ */
+.burger-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background 0.15s;
+    z-index: 1100;
+}
+
+.burger-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.burger-line {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: #ffffff;
+    border-radius: 1px;
+    transition: transform 0.3s ease, opacity 0.3s ease, background 0.3s;
+}
+
+.burger-btn.active .burger-line:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+    background: var(--gold-500);
+}
+
+.burger-btn.active .burger-line:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.burger-btn.active .burger-line:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+    background: var(--gold-500);
+}
+
+/* ══ MOBILE OVERLAY ═════════════════════════════════ */
+.mobile-overlay {
+    display: none;
+}
+
+/* ══ LAPTOP RESPONSIVE (1151px to 1400px) ════════════ */
+@media (max-width: 1400px) {
+    .header-main {
+        padding: 0 1.5rem;
+        gap: 0.75rem;
+    }
+
+    .brand-name {
+        font-size: 0.66rem;
+        max-width: 240px;
+    }
+
+    .nav>ul>li>a,
+    .nav>ul>li>span,
+    .nav>ul>li.dropdown {
+        font-size: 0.84rem;
+        padding: 0.45rem 0.4rem;
+    }
+}
+
+@media (max-width: 1250px) {
+    .header-main {
+        padding: 0 1rem;
+        gap: 0.5rem;
+    }
+
+    .brand-name {
+        font-size: 0.6rem;
+        max-width: 200px;
+    }
+
+    .nav>ul>li>a,
+    .nav>ul>li>span,
+    .nav>ul>li.dropdown {
+        font-size: 0.78rem;
+        padding: 0.4rem 0.3rem;
+    }
+}
+
+/* ══ TABLET & MOBILE RESPONSIVE (<= 1150px) ══════════ */
+@media (max-width: 1150px) {
+    /* Служебная полоса скрыта: язык и вход переезжают в бургер-меню */
+    .header-topbar {
+        display: none;
+    }
+
+    .header-main {
+        padding: 0 1.5rem;
+        height: 72px;
+        gap: 1rem;
+    }
+
+    .brand-mark {
+        height: 52px;
+    }
+
+    /* На планшетах и маленьких ноутбуках надпись НЕ должна пропадать,
+       поэтому мы ее показываем и даем ей подходящий размер */
+    .brand-name {
+        display: block;
+        font-size: 0.64rem;
+        max-width: 300px;
+    }
+
+    .brand-text strong {
+        font-size: 1.08rem;
+    }
+
+    .burger-btn {
+        display: flex;
+    }
+
+    /* Mobile overlay */
+    .mobile-overlay {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(6, 31, 23, 0.55);
+        z-index: 999;
+        animation: overlayIn 0.2s ease;
+    }
+
+    @keyframes overlayIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    /* Nav — hidden by default on mobile */
+    .nav {
+        position: fixed;
+        top: 72px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--navy-900);
+        z-index: 1000;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        transform: translateX(-100%);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        padding: 0.5rem 0 2rem;
+        box-shadow: 2px 0 16px rgba(0, 0, 0, 0.15);
+        display: block;
+    }
+
+    .nav.mobile-open {
+        transform: translateX(0);
+    }
+
+    .nav>ul {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 0;
+    }
+
+    .nav ul>li {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav ul>li.mobile-only {
+        display: block;
+    }
+
+    .nav ul>li>a,
+    .nav ul>li>span {
+        font-size: 0.92rem;
+        padding: 0.85rem 1.5rem;
+        display: flex;
+        width: 100%;
+        white-space: normal;
+        border-radius: 0;
+        color: #ffffff;
+    }
+
+    .nav ul>li.dropdown {
+        padding: 0;
+        display: block;
+        width: 100%;
+    }
+
+    .dropdown-trigger {
+        width: 100%;
+        padding: 0.85rem 1.5rem;
+        justify-content: space-between;
+    }
+
+    /* Disable hover on mobile, use click instead */
+    .dropdown:hover .dropdown-content {
+        display: none !important;
+    }
+
+    /* Show dropdown on mobile via click */
+    .dropdown.mobile-dropdown-open .dropdown-content {
+        display: block !important;
+        position: relative;
+        top: 0;
+        box-shadow: none;
+        border: none;
+        border-radius: 0;
+        padding: 0;
+        min-width: 100%;
+        background: var(--navy-800);
+        animation: mobileDropIn 0.2s ease;
+    }
+
+    @keyframes mobileDropIn {
+        from {
+            opacity: 0;
+            transform: translateY(-6px);
+        }
+        to {
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    .dropdown.mobile-dropdown-open .dropdown-content li a {
+        padding: 0.75rem 1.5rem 0.75rem 2.5rem;
+        font-size: 0.88rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        color: #ffffff;
+    }
+
+    .dropdown.mobile-dropdown-open .dropdown-content li:last-child a {
+        border-bottom: none;
+    }
+
+    /* Переключатель языка внутри бургер-меню */
+    .lang-switch-li {
+        margin: 1rem 1.5rem 0.5rem;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 4px;
+        background-color: rgba(255, 255, 255, 0.05);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .lang-switch-li span {
+        justify-content: center;
+        font-weight: 600;
+    }
+}
+
+/* ══ DEVICE SPECIFIC RESPONSIVE (<= 768px) ═══════════ */
+@media (max-width: 768px) {
+    .header-main {
+        padding: 0 1rem;
+        height: 64px;
+    }
+
+    .brand-mark {
+        height: 46px;
+    }
+
+    /* На телефонах скрываем надпись, так как физически нет места */
+    .brand-name {
+        display: none;
+    }
+
+    .nav {
+        top: 64px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-main {
+        padding: 0 0.75rem;
+        height: 56px;
+    }
+
+    .brand-mark {
+        height: 36px;
+    }
+
+    .nav {
+        top: 56px;
+    }
+}

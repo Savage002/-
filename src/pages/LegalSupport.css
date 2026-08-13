@@ -1,0 +1,274 @@
+/* ══ LEGAL SUPPORT PAGE ═════════════════════════════ */
+.ls-page-new {
+    background: #fff;
+}
+
+.ls-hero {
+    position: relative;
+    background: linear-gradient(135deg, var(--navy-800) 0%, var(--navy-950) 100%);
+    padding: 5.5rem 2rem 4rem;
+    text-align: center;
+    overflow: hidden;
+}
+
+.ls-hero-bg {
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.ls-hero-content {
+    position: relative;
+    max-width: 780px;
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.ls-hero-content.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+.ls-hero-content h1 {
+    color: #fff;
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+}
+
+.ls-hero-content p {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 1rem;
+    line-height: 1.75;
+}
+
+/* Services */
+.ls-services-section {
+    padding: 5rem 2rem;
+}
+
+.ls-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.ls-sec-header {
+    margin-bottom: 2.5rem;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.ls-sec-header.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+.ls-sec-header h2 {
+    font-size: 1.85rem;
+    font-weight: 800;
+    color: var(--navy-900);
+    margin-top: 0.4rem;
+}
+
+.ls-services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.35rem;
+}
+
+.ls-service-card {
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 16px;
+    padding: 1.75rem;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.55s ease, transform 0.55s ease, box-shadow 0.25s;
+}
+
+.ls-service-card.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+.ls-service-card:hover {
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px) !important;
+}
+
+.ls-svc-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.65rem;
+    margin-bottom: 1.1rem;
+}
+
+.ls-service-card h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.ls-service-card p {
+    font-size: 0.87rem;
+    color: #667;
+    line-height: 1.65;
+}
+
+.ls-svc-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s ease;
+}
+
+.ls-service-card:hover .ls-svc-bar {
+    transform: scaleX(1);
+}
+
+/* Databases */
+.ls-db-section {
+    background: var(--surface-page);
+    padding: 4rem 2rem;
+}
+
+.ls-db-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.ls-db-card {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 14px;
+    padding: 1.15rem 1.5rem;
+    text-decoration: none;
+    color: #334;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.25s, border-color 0.25s;
+}
+
+.ls-db-card.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+.ls-db-card:hover {
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.09);
+    border-color: var(--gold-500)33;
+    transform: translateX(4px) !important;
+}
+
+.ls-db-icon {
+    font-size: 1.75rem;
+    flex-shrink: 0;
+}
+
+.ls-db-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.ls-db-text strong {
+    font-size: 0.97rem;
+    font-weight: 700;
+    color: var(--navy-900);
+}
+
+.ls-db-text span {
+    font-size: 0.8rem;
+    color: #889;
+}
+
+.ls-db-arrow {
+    font-size: 1.1rem;
+    color: var(--gold-500);
+    transition: transform 0.2s;
+}
+
+.ls-db-card:hover .ls-db-arrow {
+    transform: translate(3px, -3px);
+}
+
+@media (max-width: 1024px) {
+    .ls-services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .ls-hero {
+        padding: 3.5rem 1.25rem 2.5rem;
+    }
+
+    .ls-hero-content h1 {
+        font-size: 1.8rem;
+    }
+
+    .ls-services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ls-services-section {
+        padding: 3rem 1.25rem;
+    }
+
+    .ls-db-section {
+        padding: 2.5rem 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .ls-hero {
+        padding: 2.5rem 1rem 2rem;
+    }
+
+    .ls-hero-content h1 {
+        font-size: 1.45rem;
+    }
+
+    .ls-hero-content p {
+        font-size: 0.88rem;
+    }
+
+    .ls-services-section {
+        padding: 2rem 1rem;
+    }
+
+    .ls-sec-header h2 {
+        font-size: 1.4rem;
+    }
+
+    .ls-db-section {
+        padding: 2rem 1rem;
+    }
+
+    .ls-service-card {
+        padding: 1.25rem;
+    }
+
+    .ls-db-card {
+        padding: 1rem 1.15rem;
+    }
+}
