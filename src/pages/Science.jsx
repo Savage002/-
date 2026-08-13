@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLanguage } from '../context/useLanguage';
+import Icon from '../components/Icon/Icon';
 import './Science.css';
 
 const categoriesData = {
     ru: [
         {
-            icon: "⚖️",
+            icon: "scale",
             title: "Правовая экспертиза",
             color: "#d4a843",
             items: [
@@ -15,7 +16,7 @@ const categoriesData = {
             ]
         },
         {
-            icon: "🔬",
+            icon: "research",
             title: "Научные исследования",
             color: "#4a709c",
             items: [
@@ -26,7 +27,7 @@ const categoriesData = {
             ]
         },
         {
-            icon: "🌐",
+            icon: "globe",
             title: "Международное сотрудничество",
             color: "#1a7a4a",
             items: [
@@ -36,7 +37,7 @@ const categoriesData = {
             ]
         },
         {
-            icon: "📋",
+            icon: "clipboard",
             title: "Правовая информация",
             color: "#7a4a1a",
             items: [
@@ -48,7 +49,7 @@ const categoriesData = {
     ],
     kk: [
         {
-            icon: "⚖️",
+            icon: "scale",
             title: "Құқықтық сараптама",
             color: "#d4a843",
             items: [
@@ -58,7 +59,7 @@ const categoriesData = {
             ]
         },
         {
-            icon: "🔬",
+            icon: "research",
             title: "Ғылыми зерттеулер",
             color: "#4a709c",
             items: [
@@ -69,7 +70,7 @@ const categoriesData = {
             ]
         },
         {
-            icon: "🌐",
+            icon: "globe",
             title: "Халықаралық ынтымақтастық",
             color: "#1a7a4a",
             items: [
@@ -79,7 +80,7 @@ const categoriesData = {
             ]
         },
         {
-            icon: "📋",
+            icon: "clipboard",
             title: "Құқықтық ақпарат",
             color: "#7a4a1a",
             items: [
@@ -93,16 +94,16 @@ const categoriesData = {
 
 const scienceStatsData = {
     ru: [
-        { num: "500+", label: "научных публикаций", icon: "📚" },
-        { num: "30+", label: "лет научной деятельности", icon: "🏛️" },
-        { num: "50+", label: "международных партнёров", icon: "🌐" },
-        { num: "12", label: "направлений экспертизы", icon: "⚖️" },
+        { num: "500+", label: "научных публикаций", icon: "bookOpen" },
+        { num: "30+", label: "лет научной деятельности", icon: "landmark" },
+        { num: "50+", label: "международных партнёров", icon: "globe" },
+        { num: "12", label: "направлений экспертизы", icon: "scale" },
     ],
     kk: [
-        { num: "500+", label: "ғылыми жарияланым", icon: "📚" },
-        { num: "30+", label: "жыл ғылыми қызмет", icon: "🏛️" },
-        { num: "50+", label: "халықаралық серіктес", icon: "🌐" },
-        { num: "12", label: "сараптама бағыты", icon: "⚖️" },
+        { num: "500+", label: "ғылыми жарияланым", icon: "bookOpen" },
+        { num: "30+", label: "жыл ғылыми қызмет", icon: "landmark" },
+        { num: "50+", label: "халықаралық серіктес", icon: "globe" },
+        { num: "12", label: "сараптама бағыты", icon: "scale" },
     ]
 };
 
@@ -145,7 +146,7 @@ function Science() {
             <section className="science-stats-bar">
                 {scienceStats.map((s, i) => (
                     <RevealCard key={i} delay={i * 80} className="sci-stat">
-                        <span className="sci-stat-icon">{s.icon}</span>
+                        <Icon name={s.icon} className="sci-stat-icon" />
                         <strong>{s.num}</strong>
                         <span>{s.label}</span>
                     </RevealCard>
@@ -163,9 +164,7 @@ function Science() {
                         {categories.map((cat, ci) => (
                             <RevealCard key={ci} delay={ci * 100} className="sci-category">
                                 <div className="sci-cat-header" style={{ borderColor: cat.color }}>
-                                    <div className="sci-cat-icon" style={{ background: cat.color + '18' }}>
-                                        <span>{cat.icon}</span>
-                                    </div>
+                                    <Icon name={cat.icon} className="sci-cat-icon" />
                                     <h3 style={{ color: cat.color }}>{cat.title}</h3>
                                 </div>
                                 <ul className="sci-items">

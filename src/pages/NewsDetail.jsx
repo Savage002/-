@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { useLanguage } from '../context/useLanguage';
+import Icon from '../components/Icon/Icon';
 import './NewsDetail.css';
 
 export default function NewsDetail() {
@@ -91,7 +92,7 @@ export default function NewsDetail() {
                         ))}
 
 
-                        <div className="nd-click-hint">🔍 {language === 'kk' ? 'Көру үшін басыңыз' : 'Нажмите для просмотра'}</div>
+                        <div className="nd-click-hint"><Icon name="search" variant="bare" size={15} /> {language === 'kk' ? 'Көру үшін басыңыз' : 'Нажмите для просмотра'}</div>
 
                         {total > 1 && (
                             <>

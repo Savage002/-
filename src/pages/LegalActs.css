@@ -19,39 +19,43 @@
     border-bottom: 2px solid var(--gold-50);
 }
 
-.la-list {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+.la-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
 }
 
-.la-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
+.la-card {
     background: #fff;
-    padding: 0.9rem 1.25rem;
-    border-radius: 8px;
-    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
-    font-size: 0.9rem;
+    padding: 1.25rem;
+    border-radius: 10px;
+    border-top: 3px solid var(--acc, var(--gold-500));
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.la-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+}
+
+.la-card-icon {
+    --icon-size: 40px;
+    border-color: var(--acc, var(--gold-500));
+    margin-bottom: 0.85rem;
+}
+
+.la-card p {
+    margin: 0;
+    font-size: 0.88rem;
     line-height: 1.6;
     color: var(--ink-900);
 }
 
-.la-bullet {
-    color: var(--gold-500);
-    font-size: 0.7rem;
-    margin-top: 4px;
-    flex-shrink: 0;
-}
-
 /* ── Responsive ─────────────────────────────────── */
 @media (max-width: 480px) {
-    .la-item {
-        padding: 0.75rem 1rem;
-        font-size: 0.85rem;
+    .la-card {
+        padding: 1rem;
     }
 
     .la-category {

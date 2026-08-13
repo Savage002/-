@@ -1,40 +1,41 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLanguage } from '../context/useLanguage';
+import Icon from '../components/Icon/Icon';
 import './Corruption.css';
 
 const anticorDocsData = {
     ru: [
-        { title: "ИЗПИ — политика противодействия коррупции", href: "https://zqai.kz/sites/default/files/2025-11/%D0%98%D0%97%D0%9F%D0%98-%D0%BF%D0%BE%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B0%20%D0%BF%D1%80%D0%BE%D1%82%D0%B8%D0%B2%D0%BE%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BA%D0%BE%D1%80%D1%80%D1%83%D0%BF%D1%86%D0%B8%D0%B8.pdf", icon: "📄" },
-        { title: "ИЗПИ — положение комплаенс-офицера", href: "https://zqai.kz/sites/default/files/2025-11/%D0%98%D0%97%D0%9F%D0%98-%D0%BF%D0%BE%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BA%D0%BE%D0%BC%D0%BF%D0%BB%D0%B0%D0%B5%D0%BD%D1%81-%D0%BE%D1%84%D0%B8%D1%86%D0%B5%D1%80%D0%B0.docx.pdf.pdf", icon: "👤" },
-        { title: "ИЗПИ — правила проведения служебного расследования", href: "https://zqai.kz/sites/default/files/2025-11/%D0%98%D0%97%D0%9F%D0%98-%D0%BF%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0%20%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%A1%D0%A0.docx.pdf.pdf", icon: "🔍" },
-        { title: "ИЗПИ — регламент горячей линии", href: "https://zqai.kz/sites/default/files/2025-11/%D0%98%D0%97%D0%9F%D0%98-%D1%80%D0%B5%D0%B3%D0%BB%D0%B0%D0%BC%D0%B5%D0%BD%D1%82%20%D0%93%D0%BE%D1%80%D1%8F%D1%87%D0%B5%D0%B9%20%D0%BB%D0%B8%D0%BD%D0%B8%D0%B8.docx.pdf.pdf", icon: "📞" },
-        { title: "ИЗПИ — регламент личного приёма", href: "https://zqai.kz/sites/default/files/2025-11/%D0%98%D0%97%D0%9F%D0%98-%D1%80%D0%B5%D0%B3%D0%BB%D0%B0%D0%BC%D0%B5%D0%BD%D1%82%20%D0%9B%D0%B8%D1%87%D0%BD%D0%BE%D0%B3%D0%BE%20%D0%BF%D1%80%D0%B8%D0%B5%D0%BC%D0%B0.docx.pdf.pdf", icon: "🤝" },
+        { title: "ИЗПИ — политика противодействия коррупции", href: "https://zqai.kz/sites/default/files/2025-11/%D0%98%D0%97%D0%9F%D0%98-%D0%BF%D0%BE%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B0%20%D0%BF%D1%80%D0%BE%D1%82%D0%B8%D0%B2%D0%BE%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BA%D0%BE%D1%80%D1%80%D1%83%D0%BF%D1%86%D0%B8%D0%B8.pdf", icon: "document" },
+        { title: "ИЗПИ — положение комплаенс-офицера", href: "https://zqai.kz/sites/default/files/2025-11/%D0%98%D0%97%D0%9F%D0%98-%D0%BF%D0%BE%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BA%D0%BE%D0%BC%D0%BF%D0%BB%D0%B0%D0%B5%D0%BD%D1%81-%D0%BE%D1%84%D0%B8%D1%86%D0%B5%D1%80%D0%B0.docx.pdf.pdf", icon: "user" },
+        { title: "ИЗПИ — правила проведения служебного расследования", href: "https://zqai.kz/sites/default/files/2025-11/%D0%98%D0%97%D0%9F%D0%98-%D0%BF%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0%20%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%A1%D0%A0.docx.pdf.pdf", icon: "search" },
+        { title: "ИЗПИ — регламент горячей линии", href: "https://zqai.kz/sites/default/files/2025-11/%D0%98%D0%97%D0%9F%D0%98-%D1%80%D0%B5%D0%B3%D0%BB%D0%B0%D0%BC%D0%B5%D0%BD%D1%82%20%D0%93%D0%BE%D1%80%D1%8F%D1%87%D0%B5%D0%B9%20%D0%BB%D0%B8%D0%BD%D0%B8%D0%B8.docx.pdf.pdf", icon: "phone" },
+        { title: "ИЗПИ — регламент личного приёма", href: "https://zqai.kz/sites/default/files/2025-11/%D0%98%D0%97%D0%9F%D0%98-%D1%80%D0%B5%D0%B3%D0%BB%D0%B0%D0%BC%D0%B5%D0%BD%D1%82%20%D0%9B%D0%B8%D1%87%D0%BD%D0%BE%D0%B3%D0%BE%20%D0%BF%D1%80%D0%B8%D0%B5%D0%BC%D0%B0.docx.pdf.pdf", icon: "handshake" },
     ],
     kk: [
-        { title: "ЗҚАИ — сыбайлас жемқорлыққа қарсы іс-қимыл саясаты", href: "https://zqai.kz/sites/default/files/2025-11/%D0%98%D0%97%D0%9F%D0%98-%D0%BF%D0%BE%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B0%20%D0%BF%D1%80%D0%BE%D1%82%D0%B8%D0%B2%D0%BE%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BA%D0%BE%D1%80%D1%80%D1%83%D0%BF%D1%86%D0%B8%D0%B8.pdf", icon: "📄" },
-        { title: "ЗҚАИ — комплаенс-офицер ережесі", href: "https://zqai.kz/sites/default/files/2025-11/%D0%98%D0%97%D0%9F%D0%98-%D0%BF%D0%BE%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BA%D0%BE%D0%BC%D0%BF%D0%BB%D0%B0%D0%B5%D0%BD%D1%81-%D0%BE%D1%84%D0%B8%D1%86%D0%B5%D1%80%D0%B0.docx.pdf.pdf", icon: "👤" },
-        { title: "ЗҚАИ — қызметтік тергеу жүргізу қағидалары", href: "https://zqai.kz/sites/default/files/2025-11/%D0%98%D0%97%D0%9F%D0%98-%D0%BF%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0%20%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%A1%D0%A0.docx.pdf.pdf", icon: "🔍" },
-        { title: "ЗҚАИ — жедел желі регламенті", href: "https://zqai.kz/sites/default/files/2025-11/%D0%98%D0%97%D0%9F%D0%98-%D1%80%D0%B5%D0%B3%D0%BB%D0%B0%D0%BC%D0%B5%D0%BD%D1%82%20%D0%93%D0%BE%D1%80%D1%8F%D1%87%D0%B5%D0%B9%20%D0%BB%D0%B8%D0%BD%D0%B8%D0%B8.docx.pdf.pdf", icon: "📞" },
-        { title: "ЗҚАИ — жеке қабылдау регламенті", href: "https://zqai.kz/sites/default/files/2025-11/%D0%98%D0%97%D0%9F%D0%98-%D1%80%D0%B5%D0%B3%D0%BB%D0%B0%D0%BC%D0%B5%D0%BD%D1%82%20%D0%9B%D0%B8%D1%87%D0%BD%D0%BE%D0%B3%D0%BE%20%D0%BF%D1%80%D0%B8%D0%B5%D0%BC%D0%B0.docx.pdf.pdf", icon: "🤝" },
+        { title: "ЗҚАИ — сыбайлас жемқорлыққа қарсы іс-қимыл саясаты", href: "https://zqai.kz/sites/default/files/2025-11/%D0%98%D0%97%D0%9F%D0%98-%D0%BF%D0%BE%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B0%20%D0%BF%D1%80%D0%BE%D1%82%D0%B8%D0%B2%D0%BE%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F%20%D0%BA%D0%BE%D1%80%D1%80%D1%83%D0%BF%D1%86%D0%B8%D0%B8.pdf", icon: "document" },
+        { title: "ЗҚАИ — комплаенс-офицер ережесі", href: "https://zqai.kz/sites/default/files/2025-11/%D0%98%D0%97%D0%9F%D0%98-%D0%BF%D0%BE%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BA%D0%BE%D0%BC%D0%BF%D0%BB%D0%B0%D0%B5%D0%BD%D1%81-%D0%BE%D1%84%D0%B8%D1%86%D0%B5%D1%80%D0%B0.docx.pdf.pdf", icon: "user" },
+        { title: "ЗҚАИ — қызметтік тергеу жүргізу қағидалары", href: "https://zqai.kz/sites/default/files/2025-11/%D0%98%D0%97%D0%9F%D0%98-%D0%BF%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0%20%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%A1%D0%A0.docx.pdf.pdf", icon: "search" },
+        { title: "ЗҚАИ — жедел желі регламенті", href: "https://zqai.kz/sites/default/files/2025-11/%D0%98%D0%97%D0%9F%D0%98-%D1%80%D0%B5%D0%B3%D0%BB%D0%B0%D0%BC%D0%B5%D0%BD%D1%82%20%D0%93%D0%BE%D1%80%D1%8F%D1%87%D0%B5%D0%B9%20%D0%BB%D0%B8%D0%BD%D0%B8%D0%B8.docx.pdf.pdf", icon: "phone" },
+        { title: "ЗҚАИ — жеке қабылдау регламенті", href: "https://zqai.kz/sites/default/files/2025-11/%D0%98%D0%97%D0%9F%D0%98-%D1%80%D0%B5%D0%B3%D0%BB%D0%B0%D0%BC%D0%B5%D0%BD%D1%82%20%D0%9B%D0%B8%D1%87%D0%BD%D0%BE%D0%B3%D0%BE%20%D0%BF%D1%80%D0%B8%D0%B5%D0%BC%D0%B0.docx.pdf.pdf", icon: "handshake" },
     ]
 };
 
 const standardsData = {
     ru: [
-        { icon: "📋", text: "Формирование и соблюдение антикоррупционных стандартов" },
-        { icon: "💰", text: "Финансовый контроль" },
-        { icon: "🚫", text: "Антикоррупционные ограничения" },
-        { icon: "⚖️", text: "Предотвращение и разрешение конфликта интересов" },
-        { icon: "📢", text: "Сообщение о коррупционных правонарушениях" },
-        { icon: "🔄", text: "Устранение последствий коррупционных правонарушений" },
+        { icon: "clipboard", text: "Формирование и соблюдение антикоррупционных стандартов" },
+        { icon: "money", text: "Финансовый контроль" },
+        { icon: "prohibit", text: "Антикоррупционные ограничения" },
+        { icon: "scale", text: "Предотвращение и разрешение конфликта интересов" },
+        { icon: "megaphone", text: "Сообщение о коррупционных правонарушениях" },
+        { icon: "refresh", text: "Устранение последствий коррупционных правонарушений" },
     ],
     kk: [
-        { icon: "📋", text: "Сыбайлас жемқорлыққа қарсы стандарттарды қалыптастыру және сақтау" },
-        { icon: "💰", text: "Қаржылық бақылау" },
-        { icon: "🚫", text: "Сыбайлас жемқорлыққа қарсы шектеулер" },
-        { icon: "⚖️", text: "Мүдделер қақтығысының алдын алу және шешу" },
-        { icon: "📢", text: "Сыбайлас жемқорлық құқық бұзушылықтар туралы хабарлау" },
-        { icon: "🔄", text: "Сыбайлас жемқорлық құқық бұзушылықтардың салдарын жою" },
+        { icon: "clipboard", text: "Сыбайлас жемқорлыққа қарсы стандарттарды қалыптастыру және сақтау" },
+        { icon: "money", text: "Қаржылық бақылау" },
+        { icon: "prohibit", text: "Сыбайлас жемқорлыққа қарсы шектеулер" },
+        { icon: "scale", text: "Мүдделер қақтығысының алдын алу және шешу" },
+        { icon: "megaphone", text: "Сыбайлас жемқорлық құқық бұзушылықтар туралы хабарлау" },
+        { icon: "refresh", text: "Сыбайлас жемқорлық құқық бұзушылықтардың салдарын жою" },
     ]
 };
 
@@ -111,13 +112,13 @@ function HotlineCard({ language }) {
     const [ref, vis] = useReveal();
     return (
         <div ref={ref} className={`hotline-card ${vis ? 'is-visible' : ''}`}>
-            <div className="hotline-icon">🛡️</div>
+            <Icon name="shield" className="hotline-icon" />
             <div className="hotline-text">
                 <h2>{language === 'kk' ? 'Сыбайлас жемқорлық бойынша жедел желі' : 'Горячая линия по коррупции'}</h2>
                 <p>{language === 'kk' ? 'Сыбайлас жемқорлық құқық бұзушылық фактілері туралы хабарлау үшін:' : 'Для сообщения о фактах коррупционных правонарушений:'}</p>
                 <div className="hotline-contacts">
-                    <a href="mailto:anticorruption@zqai.kz" className="hotline-contact-btn email">✉️ anticorruption@zqai.kz</a>
-                    <a href="tel:+77172576507" className="hotline-contact-btn phone">📞 +7 (7172) 57-65-07</a>
+                    <a href="mailto:anticorruption@zqai.kz" className="hotline-contact-btn email"><Icon name="mail" variant="bare" size={16} /> anticorruption@zqai.kz</a>
+                    <a href="tel:+77172576507" className="hotline-contact-btn phone"><Icon name="phone" variant="bare" size={16} /> +7 (7172) 57-65-07</a>
                 </div>
                 <p className="hotline-note">{language === 'kk' ? 'Барлық өтініштер тіркеледі және заңнамада белгіленген мерзімде қаралады. Анонимдікке кепілдік беріледі.' : 'Все обращения регистрируются и рассматриваются в установленные законодательством сроки. Анонимность гарантируется.'}</p>
             </div>
@@ -139,7 +140,7 @@ function StandardCard({ s, delay }) {
     const [ref, vis] = useReveal();
     return (
         <div ref={ref} className={`standard-card ${vis ? 'is-visible' : ''}`} style={{ transitionDelay: `${delay}ms` }}>
-            <span className="standard-icon">{s.icon}</span>
+            <Icon name={s.icon} className="standard-icon" />
             <p>{s.text}</p>
         </div>
     );
@@ -150,9 +151,9 @@ function DocItem({ d, delay }) {
     return (
         <a ref={ref} href={d.href} target="_blank" rel="noopener noreferrer"
             className={`doc-item ${vis ? 'is-visible' : ''}`} style={{ transitionDelay: `${delay}ms` }}>
-            <span className="doc-icon">{d.icon}</span>
+            <Icon name={d.icon} className="doc-icon" />
             <span className="doc-title">{d.title}</span>
-            <span className="doc-arrow">↓ PDF</span>
+            <span className="doc-arrow"><Icon name="download" variant="bare" size={13} /> PDF</span>
         </a>
     );
 }

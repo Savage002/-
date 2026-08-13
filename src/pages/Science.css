@@ -110,7 +110,7 @@
 }
 
 .sci-stat-icon {
-    font-size: 1.5rem;
+    --icon-size: 44px;
 }
 
 .sci-stat strong {
@@ -191,14 +191,7 @@
 }
 
 .sci-cat-icon {
-    width: 46px;
-    height: 46px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    flex-shrink: 0;
+    --icon-size: 46px;
 }
 
 .sci-cat-header h3 {

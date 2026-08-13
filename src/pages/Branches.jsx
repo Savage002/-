@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLanguage } from '../context/useLanguage';
+import Icon from '../components/Icon/Icon';
 import './Branches.css';
 
 // Координаты пинов рассчитаны проекцией реальных координат городов (широта/долгота)
@@ -8,20 +9,20 @@ import './Branches.css';
 // положением городов на силуэте Казахстана.
 const branchesData = {
     ru: [
-        { city: "Алматы", region: "Алматинская обл.", address: "ул. Панфилова, 106", phone: "+7 (727) 272-29-63", email: "almaty@zqai.kz", icon: "🌆", x: 763.02, y: 464.72, activities: "Правовые исследования, экспертная и научно-аналитическая работа, бесплатная юридическая помощь гражданам." },
-        { city: "Актобе", region: "Актюбинская обл.", address: "пр. Абилкайыр хана, 25", phone: "+7 (7132) 54-41-45", email: "aktobe@zqai.kz", icon: "🏙️", x: 281.67, y: 206.52, activities: "Единый государственный учёт НПА региона, консультирование граждан и организаций." },
-        { city: "Тараз", region: "Жамбылская обл.", address: "ул. Колбасшы Койгельды, 158а", phone: "+7 (7262) 45-15-96", email: "taraz@zqai.kz", icon: "🏘️", x: 628.9, y: 476.49, activities: "Мониторинг регионального законодательства, участие в правовых семинарах и круглых столах." },
-        { city: "Қарағанды", region: "Карагандинская обл.", address: "ул. Гоголя, 22а", phone: "+7 (7212) 41-89-20", email: "karaganda@zqai.kz", icon: "⚒️", x: 671.52, y: 224.04, activities: "Научно-аналитическая работа, взаимодействие с местными исполнительными органами." },
-        { city: "Қостанай", region: "Костанайская обл.", address: "ул. Аль-Фараби, 43", phone: "+7 (7142) 54-47-56", email: "kostanay@zqai.kz", icon: "🌾", x: 439.85, y: 99.17, activities: "Правовое просвещение населения, экспертиза нормативных правовых актов." },
-        { city: "Семей", region: "Абайская обл.", address: "ул. Утепбаева, 5", phone: "+7 (7222) 35-40-88", email: "semey@zqai.kz", icon: "📚", x: 845.58, y: 201.87, activities: "Научно-правовые исследования, организация мероприятий по праворазъяснительной работе." },
+        { city: "Алматы", region: "Алматинская обл.", address: "ул. Панфилова, 106", phone: "+7 (727) 272-29-63", email: "almaty@zqai.kz", icon: "city", x: 763.02, y: 464.72, activities: "Правовые исследования, экспертная и научно-аналитическая работа, бесплатная юридическая помощь гражданам." },
+        { city: "Актобе", region: "Актюбинская обл.", address: "пр. Абилкайыр хана, 25", phone: "+7 (7132) 54-41-45", email: "aktobe@zqai.kz", icon: "city", x: 281.67, y: 206.52, activities: "Единый государственный учёт НПА региона, консультирование граждан и организаций." },
+        { city: "Тараз", region: "Жамбылская обл.", address: "ул. Колбасшы Койгельды, 158а", phone: "+7 (7262) 45-15-96", email: "taraz@zqai.kz", icon: "city", x: 628.9, y: 476.49, activities: "Мониторинг регионального законодательства, участие в правовых семинарах и круглых столах." },
+        { city: "Қарағанды", region: "Карагандинская обл.", address: "ул. Гоголя, 22а", phone: "+7 (7212) 41-89-20", email: "karaganda@zqai.kz", icon: "hammer", x: 671.52, y: 224.04, activities: "Научно-аналитическая работа, взаимодействие с местными исполнительными органами." },
+        { city: "Қостанай", region: "Костанайская обл.", address: "ул. Аль-Фараби, 43", phone: "+7 (7142) 54-47-56", email: "kostanay@zqai.kz", icon: "wheat", x: 439.85, y: 99.17, activities: "Правовое просвещение населения, экспертиза нормативных правовых актов." },
+        { city: "Семей", region: "Абайская обл.", address: "ул. Утепбаева, 5", phone: "+7 (7222) 35-40-88", email: "semey@zqai.kz", icon: "bookOpen", x: 845.58, y: 201.87, activities: "Научно-правовые исследования, организация мероприятий по праворазъяснительной работе." },
     ],
     kk: [
-        { city: "Алматы", region: "Алматы обл.", address: "Панфилов көш., 106", phone: "+7 (727) 272-29-63", email: "almaty@zqai.kz", icon: "🌆", x: 763.02, y: 464.72, activities: "Құқықтық зерттеулер, сараптамалық-ғылыми жұмыс, азаматтарға тегін заң көмегін көрсету." },
-        { city: "Ақтөбе", region: "Ақтөбе обл.", address: "Әбілқайыр хан даңғ., 25", phone: "+7 (7132) 54-41-45", email: "aktobe@zqai.kz", icon: "🏙️", x: 281.67, y: 206.52, activities: "Өңір бойынша НҚА-ның бірыңғай мемлекеттік есебі, азаматтар мен ұйымдарға консультация беру." },
-        { city: "Тараз", region: "Жамбыл обл.", address: "Колбасшы Койгельды көш., 158а", phone: "+7 (7262) 45-15-96", email: "taraz@zqai.kz", icon: "🏘️", x: 628.9, y: 476.49, activities: "Өңірлік заңнаманы мониторингілеу, құқықтық семинарлар мен дөңгелек үстелдерге қатысу." },
-        { city: "Қарағанды", region: "Қарағанды обл.", address: "Гоголь көш., 22а", phone: "+7 (7212) 41-89-20", email: "karaganda@zqai.kz", icon: "⚒️", x: 671.52, y: 224.04, activities: "Ғылыми-талдамалық жұмыс, жергілікті атқарушы органдармен өзара іс-қимыл." },
-        { city: "Қостанай", region: "Қостанай обл.", address: "Аль-Фараби көш., 43", phone: "+7 (7142) 54-47-56", email: "kostanay@zqai.kz", icon: "🌾", x: 439.85, y: 99.17, activities: "Халықты құқықтық ағарту, нормативтік құқықтық актілерге сараптама жасау." },
-        { city: "Семей", region: "Абай обл.", address: "Утепбаева көш., 5", phone: "+7 (7222) 35-40-88", email: "semey@zqai.kz", icon: "📚", x: 845.58, y: 201.87, activities: "Ғылыми-құқықтық зерттеулер, праворазъяснительная жұмыс бойынша іс-шаралар ұйымдастыру." },
+        { city: "Алматы", region: "Алматы обл.", address: "Панфилов көш., 106", phone: "+7 (727) 272-29-63", email: "almaty@zqai.kz", icon: "city", x: 763.02, y: 464.72, activities: "Құқықтық зерттеулер, сараптамалық-ғылыми жұмыс, азаматтарға тегін заң көмегін көрсету." },
+        { city: "Ақтөбе", region: "Ақтөбе обл.", address: "Әбілқайыр хан даңғ., 25", phone: "+7 (7132) 54-41-45", email: "aktobe@zqai.kz", icon: "city", x: 281.67, y: 206.52, activities: "Өңір бойынша НҚА-ның бірыңғай мемлекеттік есебі, азаматтар мен ұйымдарға консультация беру." },
+        { city: "Тараз", region: "Жамбыл обл.", address: "Колбасшы Койгельды көш., 158а", phone: "+7 (7262) 45-15-96", email: "taraz@zqai.kz", icon: "city", x: 628.9, y: 476.49, activities: "Өңірлік заңнаманы мониторингілеу, құқықтық семинарлар мен дөңгелек үстелдерге қатысу." },
+        { city: "Қарағанды", region: "Қарағанды обл.", address: "Гоголь көш., 22а", phone: "+7 (7212) 41-89-20", email: "karaganda@zqai.kz", icon: "hammer", x: 671.52, y: 224.04, activities: "Ғылыми-талдамалық жұмыс, жергілікті атқарушы органдармен өзара іс-қимыл." },
+        { city: "Қостанай", region: "Қостанай обл.", address: "Аль-Фараби көш., 43", phone: "+7 (7142) 54-47-56", email: "kostanay@zqai.kz", icon: "wheat", x: 439.85, y: 99.17, activities: "Халықты құқықтық ағарту, нормативтік құқықтық актілерге сараптама жасау." },
+        { city: "Семей", region: "Абай обл.", address: "Утепбаева көш., 5", phone: "+7 (7222) 35-40-88", email: "semey@zqai.kz", icon: "bookOpen", x: 845.58, y: 201.87, activities: "Ғылыми-құқықтық зерттеулер, праворазъяснительная жұмыс бойынша іс-шаралар ұйымдастыру." },
     ]
 };
 
@@ -119,16 +120,16 @@ function BranchCard({ b, delay, language, id, isActive }) {
             className={`branch-card-new ${vis ? 'is-visible' : ''} ${isActive ? 'is-active' : ''}`}
             style={{ transitionDelay: `${delay}ms` }}
         >
-            <div className="branch-icon-wrap">{b.icon}</div>
+            <Icon name={b.icon} className="branch-icon-wrap" />
             <div className="branch-info">
                 <div className="branch-city-region">
                     <h3>{b.city}</h3>
                     <span className="branch-region">{b.region}</span>
                 </div>
-                <p className="branch-address">📍 {language === 'kk' ? 'қ.' : 'г.'} {b.city}, {b.address}</p>
+                <p className="branch-address"><Icon name="pin" variant="bare" size={14} /> {language === 'kk' ? 'қ.' : 'г.'} {b.city}, {b.address}</p>
                 <div className="branch-contacts">
-                    <a href={`tel:${b.phone.replace(/\s|\(|\)|-/g, '')}`} className="branch-phone">📞 {b.phone}</a>
-                    <a href={`mailto:${b.email}`} className="branch-email">✉️ {b.email}</a>
+                    <a href={`tel:${b.phone.replace(/\s|\(|\)|-/g, '')}`} className="branch-phone"><Icon name="phone" variant="bare" size={14} /> {b.phone}</a>
+                    <a href={`mailto:${b.email}`} className="branch-email"><Icon name="mail" variant="bare" size={14} /> {b.email}</a>
                 </div>
                 <button type="button" className="branch-more-btn" onClick={() => setExpanded(v => !v)}>
                     {expanded
@@ -184,7 +185,7 @@ function Branches() {
 
             <div className="branches-search-bar">
                 <div className="branches-search-wrap">
-                    <span className="search-icon">🔍</span>
+                    <Icon name="search" variant="bare" size={16} className="search-icon" />
                     <input
                         type="text"
                         className="branches-search-input"
@@ -232,7 +233,7 @@ function Branches() {
                 </div>
                 {filtered.length === 0 && (
                     <div className="branches-empty">
-                        <span>🔍</span>
+                        <Icon name="search" size={40} />
                         <p>{language === 'kk' ? 'Филиал табылмады' : 'Филиал не найден'}</p>
                     </div>
                 )}

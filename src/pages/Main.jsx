@@ -1,103 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/useLanguage';
+import Icon from '../components/Icon/Icon';
 import './Main.css';
-
-/* SVG Icon components for services */
-const ServiceIcon = ({ type }) => {
-    const icons = {
-        scale: (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 3v18M3 7l3-4 3 4M15 7l3-4 3 4M3 7v4a3 3 0 006 0V7M15 7v4a3 3 0 006 0V7" />
-            </svg>
-        ),
-        database: (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <ellipse cx="12" cy="5" rx="9" ry="3" />
-                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
-                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
-            </svg>
-        ),
-        phone: (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
-            </svg>
-        ),
-        research: (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M9 18h6M10 21h4" />
-                <path d="M12 3a6 6 0 00-4 10.5c.7.7 1 1.3 1 2.5h6c0-1.2.3-1.8 1-2.5A6 6 0 0012 3z" />
-            </svg>
-        ),
-        building: (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M2 9l10-6 10 6" />
-                <path d="M3 22h18M5 22v-9M9 22v-9M15 22v-9M19 22v-9" />
-            </svg>
-        ),
-        globe: (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="10" />
-                <path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
-            </svg>
-        ),
-    };
-    return <span className="svc-icon">{icons[type]}</span>;
-};
-
-/* SVG Icon components for resources */
-const ResourceIcon = ({ type }) => {
-    const icons = {
-        book: (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
-                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
-                <path d="M8 7h8M8 11h6" />
-            </svg>
-        ),
-        gavel: (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 3v18M3 7l3-4 3 4M15 7l3-4 3 4M3 7v4a3 3 0 006 0V7M15 7v4a3 3 0 006 0V7" />
-            </svg>
-        ),
-        folder: (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
-                <path d="M14 2v6h6M8 13h8M8 17h8" />
-            </svg>
-        ),
-        landmark: (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M2 9l10-6 10 6" />
-                <path d="M3 22h18M5 22v-9M9 22v-9M15 22v-9M19 22v-9" />
-            </svg>
-        ),
-        search: (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="11" cy="11" r="8" />
-                <path d="M21 21l-4.35-4.35" />
-            </svg>
-        ),
-        headset: (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
-            </svg>
-        ),
-        newspaper: (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M4 4h16a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2z" />
-                <path d="M7 8h4v4H7zM13 8h4M13 12h4M7 16h10" />
-            </svg>
-        ),
-        shield: (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                <path d="M9 12l2 2 4-4" />
-            </svg>
-        ),
-    };
-    return <span className="res-icon">{icons[type]}</span>;
-};
 
 const servicesData = {
     ru: [
@@ -294,11 +199,11 @@ function EventsCalendar({ language }) {
                                 <span className="cal-event-title">{ev.title}</span>
                                 <div className="cal-tooltip">
                                     <strong>{ev.title}</strong>
-                                    <span>⏰ {tooltipLabels.time}: {ev.time || tooltipLabels.noTime}</span>
-                                    <span>📍 {tooltipLabels.location}: {ev.location || tooltipLabels.noLocation}</span>
+                                    <span><Icon name="clock" variant="bare" size={14} /> {tooltipLabels.time}: {ev.time || tooltipLabels.noTime}</span>
+                                    <span><Icon name="pin" variant="bare" size={14} /> {tooltipLabels.location}: {ev.location || tooltipLabels.noLocation}</span>
                                     {isLinked && (
                                         <span className="cal-tooltip-click-hint">
-                                            {language === 'kk' ? '📰 Жаңалықты көру үшін басыңыз' : '📰 Нажмите для перехода к новости'}
+                                            <Icon name="newspaper" variant="bare" size={14} /> {language === 'kk' ? 'Жаңалықты көру үшін басыңыз' : 'Нажмите для перехода к новости'}
                                         </span>
                                     )}
                                 </div>
@@ -417,12 +322,12 @@ export default function Main() {
                                     <img src={displayNews[0].image} alt={displayNews[0].title} className="hero-news-main-img" />
                                 ) : (
                                     <div className="hero-news-main-img hero-news-img-placeholder">
-                                        <span>📰</span>
+                                        <Icon name="newspaper" variant="bare" size={40} />
                                     </div>
                                 )}
                                 <div className="hero-news-main-body">
                                     <div>
-                                        <span className="hero-news-main-date">📅 {displayNews[0].date}</span>
+                                        <span className="hero-news-main-date"><Icon name="calendar" variant="bare" size={13} /> {displayNews[0].date}</span>
                                         <h3 className="hero-news-main-title">{displayNews[0].title}</h3>
                                         <p className="hero-news-main-desc">
                                             {displayNews[0].content 
@@ -442,7 +347,7 @@ export default function Main() {
                             {displayNews.slice(1, 3).map((item) => (
                                 <Link key={item.id} to={`/news/${item.id}`} className="hero-news-sub-card">
                                     <h3 className="hero-news-sub-title">{item.title}</h3>
-                                    <span className="hero-news-sub-date">📅 {item.date}</span>
+                                    <span className="hero-news-sub-date"><Icon name="calendar" variant="bare" size={13} /> {item.date}</span>
                                 </Link>
                             ))}
                         </div>
@@ -468,12 +373,10 @@ export default function Main() {
                     <div className="stats-col">
                         {stats.map((s, i) => (
                             <div key={i} className="stat-card-nitec">
-                                <div className="stat-card-icon">
-                                    {i === 0 && '★'}
-                                    {i === 1 && '🗂️'}
-                                    {i === 2 && '🌐'}
-                                    {i === 3 && '⚖️'}
-                                </div>
+                                <Icon
+                                    name={['award', 'folder', 'globe', 'scale'][i] || 'award'}
+                                    className="stat-card-icon"
+                                />
                                 <div className="stat-card-info">
                                     <span className="stat-label-top">{s.label}</span>
                                     <div className="stat-num-wrapper">
@@ -513,9 +416,7 @@ function ServicesSection({ language }) {
                 <div className="services-grid">
                     {services.map((s, i) => (
                         <div key={i} className="service-card">
-                            <div className="service-card-icon">
-                                <ServiceIcon type={s.icon} />
-                            </div>
+                            <Icon name={s.icon} className="service-card-icon" />
                             <div className="service-card-body">
                                 <h3>{s.title}</h3>
                                 <p>{s.desc}</p>
@@ -548,9 +449,7 @@ function ProjectsSection({ language }) {
                             rel="noopener noreferrer"
                             className="resource-card"
                         >
-                            <div className="resource-card-icon">
-                                <ResourceIcon type={p.icon} />
-                            </div>
+                            <Icon name={p.icon} className="resource-card-icon" />
                             <div className="resource-card-body">
                                 <strong>{p.name}</strong>
                                 <span>{p.desc}</span>
@@ -597,7 +496,7 @@ function NewsCard({ item, delay, language }) {
             <div className="news-image-wrapper">
                 {item.image
                     ? <img src={item.image} alt={item.title} />
-                    : <div className="news-image-placeholder"><span>📰</span></div>
+                    : <div className="news-image-placeholder"><Icon name="newspaper" variant="bare" size={36} /></div>
                 }
                 <div className="news-date-badge">{item.date}</div>
             </div>

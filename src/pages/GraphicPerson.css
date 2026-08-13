@@ -49,7 +49,7 @@
 }
 
 .graphic-info-icon {
-    font-size: 1.6rem;
+    --icon-size: 42px;
     flex-shrink: 0;
 }
 
@@ -193,7 +193,6 @@
 }
 
 .gp-leader-avatar-placeholder {
-    font-size: 4.5rem;
     color: #94a3b8;
 }
 

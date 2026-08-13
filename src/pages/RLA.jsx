@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useLanguage } from '../context/useLanguage';
+import Icon from '../components/Icon/Icon';
 import './RLA.css';
 
 const documentsData = {
@@ -155,7 +156,7 @@ function RLA() {
                                         className="download-btn"
                                         onClick={() => window.open(doc.url, '_blank')}
                                     >
-                                        <span>⬇</span> {language === 'kk' ? 'PDF жүктеу' : 'Скачать PDF'}
+                                        <Icon name="download" variant="bare" size={16} /> {language === 'kk' ? 'PDF жүктеу' : 'Скачать PDF'}
                                     </button>
                                 </div>
                             </div>

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useLanguage } from '../context/useLanguage';
+import Icon from '../components/Icon/Icon';
 import './DepartmentDetail.css';
 
 /* ── Scroll-reveal hook ──────────────────────────── */
@@ -22,12 +23,12 @@ function useReveal() {
 
 /* ── Department icons by keyword ─────────────────── */
 const deptMeta = {
-    1: { icon: '💻', color: '#1a6a9a', gradient: 'linear-gradient(135deg, #0f2b46 0%, #1a6a9a 100%)' },
-    2: { icon: '🔬', color: '#7a4a1a', gradient: 'linear-gradient(135deg, #3a1c00 0%, #7a4a1a 100%)' },
-    3: { icon: '🗄️', color: '#1a4a3a', gradient: 'linear-gradient(135deg, #0a2a1a 0%, #1a6a4a 100%)' },
+    1: { icon: 'computer', color: '#1a6a9a', gradient: 'linear-gradient(135deg, #0f2b46 0%, #1a6a9a 100%)' },
+    2: { icon: 'research', color: '#7a4a1a', gradient: 'linear-gradient(135deg, #3a1c00 0%, #7a4a1a 100%)' },
+    3: { icon: 'folder', color: '#1a4a3a', gradient: 'linear-gradient(135deg, #0a2a1a 0%, #1a6a4a 100%)' },
 };
 
-const defaultMeta = { icon: '🏛️', color: '#d4a843', gradient: 'linear-gradient(135deg, #4a709c 0%, #12121c 100%)' };
+const defaultMeta = { icon: 'landmark', color: '#d4a843', gradient: 'linear-gradient(135deg, #4a709c 0%, #12121c 100%)' };
 
 /* ── Rich content per unit (keyed by name_ru, then language) ── */
 const DEPT_CONTENT = {
@@ -401,9 +402,7 @@ function HeroSection({ dept, meta, n, breadcrumbLabel, directorLabel }) {
                     <span>{n(dept, 'name')}</span>
                 </nav>
 
-                <div className="dept-hero-icon-wrap" style={{ background: meta.color + '33' }}>
-                    <span className="dept-hero-icon">{meta.icon}</span>
-                </div>
+                <Icon name={meta.icon} className="dept-hero-icon-wrap" style={{ background: meta.color + '33' }} />
 
                 <h1 className="dept-hero-title">{n(dept, 'name')}</h1>
 
@@ -420,9 +419,9 @@ function HeroSection({ dept, meta, n, breadcrumbLabel, directorLabel }) {
 
 function StatsBar({ divisions, totalSectors, language }) {
     const stats = [
-        { icon: '📂', value: divisions.length, label: language === 'kk' ? 'Бөлімдер' : 'Отделы / Управления' },
-        { icon: '🔷', value: totalSectors, label: language === 'kk' ? 'Секторлар' : 'Секторы' },
-        { icon: '👥', value: divisions.filter(d => d.head_full_name).length + (totalSectors > 0 ? 1 : 0), label: language === 'kk' ? 'Басшылар' : 'Руководители' },
+        { icon: 'folder', value: divisions.length, label: language === 'kk' ? 'Бөлімдер' : 'Отделы / Управления' },
+        { icon: 'diamond', value: totalSectors, label: language === 'kk' ? 'Секторлар' : 'Секторы' },
+        { icon: 'team', value: divisions.filter(d => d.head_full_name).length + (totalSectors > 0 ? 1 : 0), label: language === 'kk' ? 'Басшылар' : 'Руководители' },
     ];
 
     return (
@@ -438,7 +437,7 @@ function StatItem({ s, delay }) {
     const [ref, vis] = useReveal();
     return (
         <div ref={ref} className={`dept-stat ${vis ? 'is-visible' : ''}`} style={{ transitionDelay: `${delay}ms` }}>
-            <span className="dept-stat-icon">{s.icon}</span>
+            <Icon name={s.icon} className="dept-stat-icon" />
             <strong>{s.value}</strong>
             <span>{s.label}</span>
         </div>
@@ -551,7 +550,7 @@ function DeptNotFound({ language }) {
     return (
         <div className="dept-not-found">
             <div className="dept-not-found-content">
-                <span className="dept-not-found-icon">🏛️</span>
+                <Icon name="landmark" className="dept-not-found-icon" />
                 <h2>{language === 'kk' ? 'Департамент табылмады' : 'Департамент не найден'}</h2>
                 <p>{language === 'kk' ? 'Мұндай департамент жоқ немесе жойылған.' : 'Такой департамент не существует или был удалён.'}</p>
                 <Link to="/Structure" className="dept-back-link">

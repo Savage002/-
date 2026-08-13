@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLanguage } from '../context/useLanguage';
+import Icon from '../components/Icon/Icon';
 import './CallCenter.css';
 
 const channelsData = {
     ru: [
-        { icon: "✉️", label: "Email", value: "npa@zqai.kz", href: "mailto:npa@zqai.kz", color: "#f59e0b" },
+        { icon: "mail", label: "Email", value: "npa@zqai.kz", href: "mailto:npa@zqai.kz", color: "#f59e0b" },
     ],
     kk: [
-        { icon: "✉️", label: "Email", value: "npa@zqai.kz", href: "mailto:npa@zqai.kz", color: "#f59e0b" },
+        { icon: "mail", label: "Email", value: "npa@zqai.kz", href: "mailto:npa@zqai.kz", color: "#f59e0b" },
     ]
 };
 
@@ -109,7 +110,7 @@ function ChannelCard({ c, delay }) {
     return (
         <a ref={ref} href={c.href} target={c.href.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer"
             className={`cc-channel-card ${vis ? 'is-visible' : ''}`} style={{ transitionDelay: `${delay}ms`, '--ch-color': c.color }}>
-            <div className="cc-ch-icon" style={{ background: c.color + '18', color: c.color }}>{c.icon}</div>
+            <Icon name={c.icon} className="cc-ch-icon" style={{ borderColor: c.color }} />
             <div className="cc-ch-text">
                 <span className="cc-ch-label">{c.label}</span>
                 <strong className="cc-ch-value">{c.value}</strong>
@@ -123,7 +124,7 @@ function HoursCard({ language }) {
     const [ref, vis] = useReveal();
     return (
         <div ref={ref} className={`cc-hours-card ${vis ? 'is-visible' : ''}`}>
-            <div className="hours-icon">🕐</div>
+            <Icon name="clock" className="hours-icon" />
             <div>
                 <h3>{language === 'kk' ? 'Жұмыс уақыты' : 'Время работы'}</h3>
                 <div className="hours-grid">
@@ -170,7 +171,7 @@ function ComplianceOfficerCard({ officer, language }) {
                 <div className="cc-officer-photo-wrap">
                     {officer.photo_url
                         ? <img src={officer.photo_url} alt={officer.full_name} className="cc-officer-photo" />
-                        : <div className="cc-officer-photo-placeholder">👤</div>
+                        : <div className="cc-officer-photo-placeholder"><Icon name="user" variant="bare" size={64} /></div>
                     }
                 </div>
                 <div className="cc-officer-info">
@@ -183,13 +184,13 @@ function ComplianceOfficerCard({ officer, language }) {
 
                         {officer.email && (
                             <a href={`mailto:${sanitizeMailto(officer.email)}`} className="cc-officer-contact">
-                                <span className="cc-officer-contact-icon" style={{ background: '#f59e0b18', color: '#b45309' }}>✉️</span>
+                                <Icon name="mail" variant="bare" size={20} className="cc-officer-contact-icon" style={{ color: '#b45309' }} />
                                 <span>{officer.email}</span>
                             </a>
                         )}
                         {officer.reception_schedule && (
                             <div className="cc-officer-contact">
-                                <span className="cc-officer-contact-icon" style={{ background: '#1a4a8a18', color: '#1a4a8a' }}>🕐</span>
+                                <Icon name="clock" variant="bare" size={20} className="cc-officer-contact-icon" style={{ color: '#1a4a8a' }} />
                                 <span>{officer.reception_schedule}</span>
                             </div>
                         )}

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLanguage } from '../context/useLanguage';
+import Icon from '../components/Icon/Icon';
 import './GraphicPerson.css';
 
 function GraphicPerson() {
@@ -38,14 +39,14 @@ function GraphicPerson() {
 
     const info = language === 'kk'
         ? [
-            { icon: '📍', label: 'Мекенжай', value: 'Астана қ., Женис к., 15а' },
-            { icon: '📞', label: 'Қабылдау телефоны', value: '+7 (7172) 26-61-22' },
-            { icon: '✉️', label: 'Email', value: 'info@zqai.kz' },
+            { icon: 'pin', label: 'Мекенжай', value: 'Астана қ., Женис к., 15а' },
+            { icon: 'phone', label: 'Қабылдау телефоны', value: '+7 (7172) 26-61-22' },
+            { icon: 'mail', label: 'Email', value: 'info@zqai.kz' },
         ]
         : [
-            { icon: '📍', label: 'Адрес', value: 'г. Астана, ул. Женис, 15а' },
-            { icon: '📞', label: 'Телефон приёмной', value: '+7 (7172) 26-61-22' },
-            { icon: '✉️', label: 'Email', value: 'info@zqai.kz' },
+            { icon: 'pin', label: 'Адрес', value: 'г. Астана, ул. Женис, 15а' },
+            { icon: 'phone', label: 'Телефон приёмной', value: '+7 (7172) 26-61-22' },
+            { icon: 'mail', label: 'Email', value: 'info@zqai.kz' },
         ];
 
     const sorted = [...scheduleData].sort((a, b) => (a.display_order ?? 0) - (b.display_order ?? 0));
@@ -59,7 +60,7 @@ function GraphicPerson() {
                     {item.image_url || item.photo_url ? (
                         <img src={item.image_url || item.photo_url} alt={item.name} className="gp-leader-avatar-img" />
                     ) : (
-                        <span className="gp-leader-avatar-placeholder">👤</span>
+                        <Icon name="user" variant="bare" size={40} className="gp-leader-avatar-placeholder" />
                     )}
                 </div>
             </div>
@@ -81,7 +82,7 @@ function GraphicPerson() {
                 <div className="graphic-info-grid">
                     {info.map((item, i) => (
                         <div key={i} className="graphic-info-card">
-                            <span className="graphic-info-icon">{item.icon}</span>
+                            <Icon name={item.icon} className="graphic-info-icon" />
                             <div>
                                 <p className="graphic-info-label">{item.label}</p>
                                 <p className="graphic-info-value">{item.value}</p>

@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import { useLanguage } from '../context/useLanguage';
+import Icon from '../components/Icon/Icon';
 import './Contacts.css';
 
 function useReveal() {
@@ -17,7 +18,7 @@ function ContactCard({ icon, title, children, delay }) {
     const [ref, vis] = useReveal();
     return (
         <div ref={ref} className={`contact-card ${vis ? 'is-visible' : ''}`} style={{ transitionDelay: `${delay}ms` }}>
-            <div className="contact-card-icon">{icon}</div>
+            <Icon name={icon} className="contact-card-icon" />
             <div className="contact-card-body">
                 <h3>{title}</h3>
                 {children}
@@ -46,11 +47,11 @@ function Contacts() {
             <section className="contacts-section">
                 <div className="contacts-container">
 
-                    <ContactCard icon="📍" title={isKk ? 'Мекенжай' : 'Адрес'} delay={0}>
+                    <ContactCard icon="pin" title={isKk ? 'Мекенжай' : 'Адрес'} delay={0}>
                         <p>{isKk ? 'Астана қ., Женіс даңғылы 15 «А»' : 'г. Астана, проспект Женис 15 «А»'}</p>
                     </ContactCard>
 
-                    <ContactCard icon="📞" title={isKk ? 'Канцелярия' : 'Канцелярия'} delay={80}>
+                    <ContactCard icon="phone" title={isKk ? 'Канцелярия' : 'Канцелярия'} delay={80}>
                         <p>57-65-08; 57-25-10</p>
                         <p>
                             <a href="mailto:antikorexpertise@zqai.kz">antikorexpertise@zqai.kz</a>
@@ -59,27 +60,27 @@ function Contacts() {
                         </p>
                     </ContactCard>
 
-                    <ContactCard icon="📋" title={isKk ? 'Ресми жариялау мәселелері бойынша' : 'По вопросам официального опубликования'} delay={160}>
+                    <ContactCard icon="clipboard" title={isKk ? 'Ресми жариялау мәселелері бойынша' : 'По вопросам официального опубликования'} delay={160}>
                         <p>57-48-66; 57-51-63; 57-81-65; 57-25-04</p>
                     </ContactCard>
 
-                    <ContactCard icon="⚖️" title={isKk ? 'Құқықтық кеңес' : 'Правовая консультация'} delay={240}>
+                    <ContactCard icon="scale" title={isKk ? 'Құқықтық кеңес' : 'Правовая консультация'} delay={240}>
                         <p>8(7172) 58-00-58</p>
                         <div className="legal-links">
                             <a href="https://adilet.zan.kz/rus" target="_blank" rel="noreferrer" className="legal-link">
-                                <span className="legal-link-icon">🔗</span>
+                                <Icon name="link" variant="bare" size={16} className="legal-link-icon" />
                                 adilet.zan.kz
                             </a>
                             <a href="https://advices.adilet.zan.kz/add.html" target="_blank" rel="noreferrer" className="legal-link">
-                                <span className="legal-link-icon">📝</span>
+                                <Icon name="edit" variant="bare" size={16} className="legal-link-icon" />
                                 {isKk ? 'Өтінім беру' : 'Подать обращение'} — advices.adilet.zan.kz
                             </a>
                             <a href="https://t.me/119KenesBot" target="_blank" rel="noreferrer" className="legal-link legal-link-tg">
-                                <span className="legal-link-icon">✈️</span>
+                                <Icon name="send" variant="bare" size={16} className="legal-link-icon" />
                                 Telegram: @119KenesBot
                             </a>
                             <a href="https://www.e-otiniş.kz" target="_blank" rel="noreferrer" className="legal-link legal-link-eotinis">
-                                <span className="legal-link-icon">🌐</span>
+                                <Icon name="globe" variant="bare" size={16} className="legal-link-icon" />
                                 {isKk ? 'Е-өтініш арқылы өтінім беру' : 'Подать обращение через Е-отіниш'}
                             </a>
                         </div>

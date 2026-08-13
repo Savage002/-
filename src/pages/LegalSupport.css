@@ -103,13 +103,7 @@
 }
 
 .ls-svc-icon {
-    width: 58px;
-    height: 58px;
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.65rem;
+    --icon-size: 58px;
     margin-bottom: 1.1rem;
 }
 
@@ -179,8 +173,7 @@
 }
 
 .ls-db-icon {
-    font-size: 1.75rem;
-    flex-shrink: 0;
+    --icon-size: 44px;
 }
 
 .ls-db-text {
