@@ -55,7 +55,29 @@ function BranchesMap({ branches, language, activeCity, onPinClick }) {
                     role="img"
                     aria-label={language === 'kk' ? 'Қазақстан картасы' : 'Карта Казахстана'}
                 >
-                    <path className="kz-map-path" d={KZ_MAP_PATH} />
+                    <defs>
+                        <linearGradient id="kzMapFill" x1="15%" y1="0%" x2="85%" y2="100%">
+                            <stop offset="0%" stopColor="#2c8a61" />
+                            <stop offset="55%" stopColor="#1a6b48" />
+                            <stop offset="100%" stopColor="#0f4a30" />
+                        </linearGradient>
+                        <radialGradient id="kzMapGlow" cx="38%" cy="22%" r="60%">
+                            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.35" />
+                            <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+                        </radialGradient>
+                        <radialGradient id="kzPinGrad" cx="35%" cy="28%" r="75%">
+                            <stop offset="0%" stopColor="#fdf0ce" />
+                            <stop offset="45%" stopColor="#f0c26b" />
+                            <stop offset="100%" stopColor="#b9812f" />
+                        </radialGradient>
+                        <clipPath id="kzMapClip">
+                            <path d={KZ_MAP_PATH} />
+                        </clipPath>
+                    </defs>
+
+                    <path className="kz-map-path" d={KZ_MAP_PATH} fill="url(#kzMapFill)" />
+                    <path className="kz-map-glow" d={KZ_MAP_PATH} fill="url(#kzMapGlow)" clipPath="url(#kzMapClip)" />
+
                     {branches.map((b, i) => (
                         <g
                             key={i}
@@ -67,9 +89,13 @@ function BranchesMap({ branches, language, activeCity, onPinClick }) {
                             onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onPinClick(b.city); } }}
                         >
                             <title>{b.city}</title>
-                            <circle className="kz-map-pin-hit" r="20" />
-                            <circle className="kz-map-pin-dot" r="7" />
-                            <text className="kz-map-pin-label" y="-14" textAnchor="middle">{b.city}</text>
+                            <circle className="kz-map-pin-hit" cy="-14" r="24" />
+                            <ellipse className="kz-map-pin-shadow" cx="0" cy="2.5" rx="9" ry="3" />
+                            <circle className="kz-map-pin-halo" cx="0" cy="-14" r="15" />
+                            <path className="kz-map-pin-body" d="M -6.5 -9 L 0 3 L 6.5 -9 Z" />
+                            <circle className="kz-map-pin-body" cx="0" cy="-14" r="10.5" />
+                            <circle className="kz-map-pin-shine" cx="-3.4" cy="-17.4" r="2.6" />
+                            <text className="kz-map-pin-label" y="19" textAnchor="middle">{b.city}</text>
                         </g>
                     ))}
                 </svg>
