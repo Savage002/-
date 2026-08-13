@@ -1,10 +1,6 @@
 .footer {
     position: relative;
     background-color: var(--navy-950);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 900px 900px;
-    background-blend-mode: overlay;
     color: #c0c8d0;
     padding: 0;
     margin-top: auto;

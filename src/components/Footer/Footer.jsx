@@ -2,7 +2,6 @@ import './Footer.css';
 import { useLanguage } from '../../context/useLanguage';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import patternBg from '../../assets/pattern_navy.png';
 
 const socialLinks = [
     {
@@ -54,7 +53,7 @@ export default function Footer() {
     ];
 
     return (
-        <footer className="footer" style={{ backgroundImage: `url(${patternBg})` }}>
+        <footer className="footer">
             <div className="footer-content">
                 <div className="footer-top">
                     <div className="footer-col footer-col-main">
