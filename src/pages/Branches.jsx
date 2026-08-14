@@ -11,20 +11,20 @@ import './Branches.css';
 // географии областей, а не рассчитаны из реальных широты/долготы.
 const branchesData = {
     ru: [
-        { city: "Алматы", region: "Алматинская обл.", address: "ул. Панфилова, 106", phone: "+7 (727) 272-29-63", email: "almaty@zqai.kz", icon: "city", x: 760, y: 420, activities: "Правовые исследования, экспертная и научно-аналитическая работа, бесплатная юридическая помощь гражданам." },
-        { city: "Актобе", region: "Актюбинская обл.", address: "пр. Абилкайыр хана, 25", phone: "+7 (7132) 54-41-45", email: "aktobe@zqai.kz", icon: "city", x: 185, y: 235, activities: "Единый государственный учёт НПА региона, консультирование граждан и организаций." },
-        { city: "Тараз", region: "Жамбылская обл.", address: "ул. Колбасшы Койгельды, 158а", phone: "+7 (7262) 45-15-96", email: "taraz@zqai.kz", icon: "city", x: 560, y: 410, activities: "Мониторинг регионального законодательства, участие в правовых семинарах и круглых столах." },
+        { city: "Алматы", region: "Алматинская обл.", address: "ул. Панфилова, 106", phone: "+7 (727) 272-29-63", email: "almaty@zqai.kz", icon: "city", x: 775, y: 435, activities: "Правовые исследования, экспертная и научно-аналитическая работа, бесплатная юридическая помощь гражданам." },
+        { city: "Актобе", region: "Актюбинская обл.", address: "пр. Абилкайыр хана, 25", phone: "+7 (7132) 54-41-45", email: "aktobe@zqai.kz", icon: "city", x: 200, y: 220, activities: "Единый государственный учёт НПА региона, консультирование граждан и организаций." },
+        { city: "Тараз", region: "Жамбылская обл.", address: "ул. Колбасшы Койгельды, 158а", phone: "+7 (7262) 45-15-96", email: "taraz@zqai.kz", icon: "city", x: 555, y: 400, activities: "Мониторинг регионального законодательства, участие в правовых семинарах и круглых столах." },
         { city: "Қарағанды", region: "Карагандинская обл.", address: "ул. Гоголя, 22а", phone: "+7 (7212) 41-89-20", email: "karaganda@zqai.kz", icon: "hammer", x: 615, y: 225, activities: "Научно-аналитическая работа, взаимодействие с местными исполнительными органами." },
-        { city: "Қостанай", region: "Костанайская обл.", address: "ул. Аль-Фараби, 43", phone: "+7 (7142) 54-47-56", email: "kostanay@zqai.kz", icon: "wheat", x: 410, y: 100, activities: "Правовое просвещение населения, экспертиза нормативных правовых актов." },
-        { city: "Семей", region: "Абайская обл.", address: "ул. Утепбаева, 5", phone: "+7 (7222) 35-40-88", email: "semey@zqai.kz", icon: "bookOpen", x: 725, y: 165, activities: "Научно-правовые исследования, организация мероприятий по праворазъяснительной работе." },
+        { city: "Қостанай", region: "Костанайская обл.", address: "ул. Аль-Фараби, 43", phone: "+7 (7142) 54-47-56", email: "kostanay@zqai.kz", icon: "wheat", x: 400, y: 110, activities: "Правовое просвещение населения, экспертиза нормативных правовых актов." },
+        { city: "Семей", region: "Абайская обл.", address: "ул. Утепбаева, 5", phone: "+7 (7222) 35-40-88", email: "semey@zqai.kz", icon: "bookOpen", x: 700, y: 200, activities: "Научно-правовые исследования, организация мероприятий по праворазъяснительной работе." },
     ],
     kk: [
-        { city: "Алматы", region: "Алматы обл.", address: "Панфилов көш., 106", phone: "+7 (727) 272-29-63", email: "almaty@zqai.kz", icon: "city", x: 760, y: 420, activities: "Құқықтық зерттеулер, сараптамалық-ғылыми жұмыс, азаматтарға тегін заң көмегін көрсету." },
-        { city: "Ақтөбе", region: "Ақтөбе обл.", address: "Әбілқайыр хан даңғ., 25", phone: "+7 (7132) 54-41-45", email: "aktobe@zqai.kz", icon: "city", x: 185, y: 235, activities: "Өңір бойынша НҚА-ның бірыңғай мемлекеттік есебі, азаматтар мен ұйымдарға консультация беру." },
-        { city: "Тараз", region: "Жамбыл обл.", address: "Колбасшы Койгельды көш., 158а", phone: "+7 (7262) 45-15-96", email: "taraz@zqai.kz", icon: "city", x: 560, y: 410, activities: "Өңірлік заңнаманы мониторингілеу, құқықтық семинарлар мен дөңгелек үстелдерге қатысу." },
+        { city: "Алматы", region: "Алматы обл.", address: "Панфилов көш., 106", phone: "+7 (727) 272-29-63", email: "almaty@zqai.kz", icon: "city", x: 775, y: 435, activities: "Құқықтық зерттеулер, сараптамалық-ғылыми жұмыс, азаматтарға тегін заң көмегін көрсету." },
+        { city: "Ақтөбе", region: "Ақтөбе обл.", address: "Әбілқайыр хан даңғ., 25", phone: "+7 (7132) 54-41-45", email: "aktobe@zqai.kz", icon: "city", x: 200, y: 220, activities: "Өңір бойынша НҚА-ның бірыңғай мемлекеттік есебі, азаматтар мен ұйымдарға консультация беру." },
+        { city: "Тараз", region: "Жамбыл обл.", address: "Колбасшы Койгельды көш., 158а", phone: "+7 (7262) 45-15-96", email: "taraz@zqai.kz", icon: "city", x: 555, y: 400, activities: "Өңірлік заңнаманы мониторингілеу, құқықтық семинарлар мен дөңгелек үстелдерге қатысу." },
         { city: "Қарағанды", region: "Қарағанды обл.", address: "Гоголь көш., 22а", phone: "+7 (7212) 41-89-20", email: "karaganda@zqai.kz", icon: "hammer", x: 615, y: 225, activities: "Ғылыми-талдамалық жұмыс, жергілікті атқарушы органдармен өзара іс-қимыл." },
-        { city: "Қостанай", region: "Қостанай обл.", address: "Аль-Фараби көш., 43", phone: "+7 (7142) 54-47-56", email: "kostanay@zqai.kz", icon: "wheat", x: 410, y: 100, activities: "Халықты құқықтық ағарту, нормативтік құқықтық актілерге сараптама жасау." },
-        { city: "Семей", region: "Абай обл.", address: "Утепбаева көш., 5", phone: "+7 (7222) 35-40-88", email: "semey@zqai.kz", icon: "bookOpen", x: 725, y: 165, activities: "Ғылыми-құқықтық зерттеулер, праворазъяснительная жұмыс бойынша іс-шаралар ұйымдастыру." },
+        { city: "Қостанай", region: "Қостанай обл.", address: "Аль-Фараби көш., 43", phone: "+7 (7142) 54-47-56", email: "kostanay@zqai.kz", icon: "wheat", x: 400, y: 110, activities: "Халықты құқықтық ағарту, нормативтік құқықтық актілерге сараптама жасау." },
+        { city: "Семей", region: "Абай обл.", address: "Утепбаева көш., 5", phone: "+7 (7222) 35-40-88", email: "semey@zqai.kz", icon: "bookOpen", x: 700, y: 200, activities: "Ғылыми-құқықтық зерттеулер, праворазъяснительная жұмыс бойынша іс-шаралар ұйымдастыру." },
     ]
 };
 
@@ -114,15 +114,10 @@ function BranchCard({ b, delay, language, id, isActive }) {
 
 function Branches() {
     const { language } = useLanguage();
-    const [search, setSearch] = useState('');
     const [heroRef, heroVis] = useReveal();
     const [activeCity, setActiveCity] = useState(null);
 
     const branches = branchesData[language] || branchesData.ru;
-    const filtered = branches.filter(b =>
-        b.city.toLowerCase().includes(search.toLowerCase()) ||
-        b.region.toLowerCase().includes(search.toLowerCase())
-    );
 
     const slug = (city) => 'branch-' + city.toLowerCase().replace(/[^a-zа-яё0-9]+/gi, '-');
 
@@ -152,30 +147,6 @@ function Branches() {
                 </div>
             </section>
 
-            <div className="branches-search-bar">
-                <div className="branches-search-wrap">
-                    <Icon name="search" variant="bare" size={16} className="search-icon" />
-                    <input
-                        type="text"
-                        className="branches-search-input"
-                        placeholder={language === 'kk' ? 'Қала немесе өңір бойынша іздеу...' : 'Поиск по городу или региону...'}
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                        aria-label={language === 'kk' ? 'Іздеу' : 'Поиск'}
-                    />
-                    {search && (
-                        <button
-                            type="button"
-                            className="search-clear"
-                            onClick={() => setSearch('')}
-                            aria-label={language === 'kk' ? 'Тазалау' : 'Очистить'}
-                        >
-                            ✕
-                        </button>
-                    )}
-                </div>
-            </div>
-
             <section className="branches-map-section">
                 <div className="branches-container">
                     <BranchesMap
@@ -189,7 +160,7 @@ function Branches() {
 
             <section className="branches-container">
                 <div className="branches-grid-new">
-                    {filtered.map((b, i) => (
+                    {branches.map((b, i) => (
                         <BranchCard
                             key={i}
                             b={b}
@@ -200,12 +171,6 @@ function Branches() {
                         />
                     ))}
                 </div>
-                {filtered.length === 0 && (
-                    <div className="branches-empty">
-                        <Icon name="search" size={40} />
-                        <p>{language === 'kk' ? 'Филиал табылмады' : 'Филиал не найден'}</p>
-                    </div>
-                )}
             </section>
         </div>
     );

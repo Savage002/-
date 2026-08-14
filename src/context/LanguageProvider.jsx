@@ -2,18 +2,12 @@ import { useState, useCallback } from 'react';
 import { LanguageContext } from './LanguageContext';
 import { translations } from '../translations';
 
-function loadStoredLanguage() {
-    const stored = localStorage.getItem('language');
-    return stored && ['ru', 'kk'].includes(stored) ? stored : 'kk';
-}
-
 export const LanguageProvider = ({ children }) => {
-    const [language, setLanguage] = useState(loadStoredLanguage);
+    const [language, setLanguage] = useState('kk');
 
     const switchLanguage = useCallback((lang) => {
         if (['ru', 'kk'].includes(lang)) {
             setLanguage(lang);
-            localStorage.setItem('language', lang);
         }
     }, []);
 

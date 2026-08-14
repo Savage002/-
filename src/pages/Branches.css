@@ -67,69 +67,6 @@
     margin-bottom: 0.5rem;
 }
 
-/* Search */
-.branches-search-bar {
-    background: #fff;
-    padding: 1.25rem 2rem;
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-    border-bottom: 1px solid #eee;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-}
-
-.branches-search-wrap {
-    position: relative;
-    flex: 1;
-    max-width: 480px;
-    display: flex;
-    align-items: center;
-    background: var(--surface-page);
-    border-radius: 10px;
-    border: 1.5px solid #e0e0e0;
-}
-
-.branches-search-wrap:focus-within {
-    border-color: var(--gold-500);
-}
-
-.search-icon {
-    position: absolute;
-    left: 12px;
-    color: #99a;
-    pointer-events: none;
-}
-
-.branches-search-input {
-    width: 100%;
-    background: transparent;
-    border: none;
-    outline: none;
-    padding: 0.7rem 2.5rem 0.7rem 2.4rem;
-    font-size: 0.92rem;
-    color: #333;
-}
-
-.search-clear {
-    position: absolute;
-    right: 10px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #999;
-    font-size: 1rem;
-    padding: 4px;
-}
-
-.branches-found {
-    font-size: 0.82rem;
-    color: #888;
-    white-space: nowrap;
-}
-
 /* Grid */
 .branches-container {
     padding: 2.5rem 2rem 5rem;
@@ -226,17 +163,6 @@
     color: var(--gold-500);
 }
 
-.branches-empty {
-    text-align: center;
-    padding: 4rem;
-    color: #aaa;
-    font-size: 1.1rem;
-}
-
-.branches-empty .icon-badge {
-    margin-bottom: 0.75rem;
-}
-
 /* ══ INTERACTIVE MAP ══════════════════════════════════ */
 .branches-map-section {
     background: #f7f9fb;
@@ -253,7 +179,6 @@
 
 .branches-map-panel {
     width: 100%;
-    max-width: 760px;
     background: linear-gradient(135deg, #ffffff 0%, #eef3f0 100%);
     border: 1px solid #dfe6e2;
     border-radius: 18px;
@@ -379,17 +304,6 @@
         grid-template-columns: 1fr;
     }
 
-    .branches-search-bar {
-        flex-direction: column;
-        align-items: stretch;
-        top: 60px;
-        padding: 1rem 1.25rem;
-    }
-
-    .branches-search-wrap {
-        max-width: 100%;
-    }
-
     .branches-container {
         padding: 2rem 1.25rem 3rem;
     }
@@ -413,11 +327,6 @@
 
     .branches-hero-content p {
         font-size: 0.88rem;
-    }
-
-    .branches-search-bar {
-        top: 56px;
-        padding: 0.75rem 1rem;
     }
 
     .branches-container {

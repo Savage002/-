@@ -1,8 +1,8 @@
 /* ════════════════════════════════════════════════════════════
    Шапка ZQAI — строгий государственный стиль
-   Два уровня (как на akorda.kz / gov.kz):
-   1) узкая служебная полоса: язык, вход
-   2) основная полоса: знак + полное название + навигация
+   Два уровня:
+   1) верхняя полоса: знак + полное название слева, вход/язык справа
+   2) нижняя полоса: навигация по разделам, во всю ширину
    ════════════════════════════════════════════════════════════ */
 
 header {
@@ -15,39 +15,24 @@ header {
     box-shadow: 0 2px 12px rgba(6, 31, 23, 0.35);
 }
 
-/* ── Верхняя служебная полоса ──────────────────────── */
-.header-topbar {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    height: 34px;
-    padding: 0 2rem;
-    background: var(--navy-950);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-    font-size: 0.72rem;
-}
-
-.topbar-note {
-    color: var(--steel-300);
-    letter-spacing: 0.04em;
-}
-
-.topbar-actions {
+/* ── Вход / язык (верхняя полоса, справа от знака) ─── */
+.header-top-actions {
     display: flex;
     align-items: center;
     gap: 0.9rem;
+    flex-shrink: 0;
 }
 
-.topbar-actions a,
+.header-top-actions a,
 .topbar-link {
     color: rgba(255, 255, 255, 0.75);
-    font-size: 0.72rem;
+    font-size: 0.82rem;
     font-weight: 500;
     cursor: pointer;
     transition: color 0.15s;
 }
 
-.topbar-actions a:hover,
+.header-top-actions a:hover,
 .topbar-link:hover {
     color: var(--gold-500);
 }
@@ -77,13 +62,20 @@ header {
     color: var(--navy-950);
 }
 
-/* ── Основная полоса ───────────────────────────────── */
+/* ── Верхняя полоса: знак + название + вход/язык ────── */
 .header-main {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 1.5rem;
     height: 88px;
+    padding: 0 2rem;
+}
+
+/* ── Нижняя полоса: навигация, во всю ширину ────────── */
+.nav-bar {
+    background: var(--navy-950);
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
     padding: 0 2rem;
 }
 
@@ -295,15 +287,31 @@ header {
     display: none;
 }
 
+/* ══ LAPTOP SQUEEZE (1025px–1450px) ═══════════════════
+   Навигация теперь на собственной полосе, но при таких
+   ширинах 8 пунктов всё ещё впритык — слегка уменьшаем
+   отступы и шрифт, чтобы уместить их без переноса. */
+@media (max-width: 1450px) {
+    .nav-bar {
+        padding: 0 1rem;
+    }
+
+    .nav ul>li>a,
+    .nav ul>li>span,
+    .nav ul>li.dropdown,
+    .dropdown {
+        font-size: 0.84rem;
+        padding: 0.5rem 0.45rem;
+    }
+}
+
 /* ══ TABLET & MOBILE RESPONSIVE ═══════════════════════
-   Полный инлайн-нав с 8 пунктами (включая два выпадающих
-   списка) физически не помещается рядом с блоком бренда
-   на большинстве ноутбучных/десктопных экранов — поэтому
-   бургер-меню используется вплоть до широких мониторов,
-   гарантируя, что ни один раздел не обрежется. */
-@media (max-width: 1900px) {
-    /* Служебная полоса скрыта: язык и вход переезжают в бургер-меню */
-    .header-topbar {
+   Навигация теперь занимает собственную полосу во всю
+   ширину под шапкой, поэтому бургер-меню нужно только на
+   узких экранах, где 8 пунктов не помещаются в одну строку. */
+@media (max-width: 1180px) {
+    /* Вход/язык скрыты: переезжают в бургер-меню */
+    .header-top-actions {
         display: none;
     }
 

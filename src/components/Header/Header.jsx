@@ -59,9 +59,16 @@ function Header() {
 
     return (
         <header>
-            {/* Верхняя служебная полоса (как на госресурсах РК) */}
-            <div className="header-topbar">
-                <div className="topbar-actions">
+            {/* Верхняя полоса: знак + название слева, вход/язык справа */}
+            <div className="header-main">
+                <Link to="/" className="brand">
+                    <img src={logo} alt={language === 'kk' ? 'ЗҚАИ' : 'ИЗПИ'} className="brand-mark" />
+                    <span className="brand-text">
+                        <span className="brand-name">{t('heroTitle')}</span>
+                    </span>
+                </Link>
+
+                <div className="header-top-actions">
                     {user ? (
                         <>
                             <Link to="/dashboard">{t('dashboard')}</Link>
@@ -78,16 +85,6 @@ function Header() {
                         {language === 'ru' ? 'ҚАЗ' : 'РУС'}
                     </button>
                 </div>
-            </div>
-
-            {/* Основная полоса: знак + название + навигация */}
-            <div className="header-main">
-                <Link to="/" className="brand">
-                    <img src={logo} alt={language === 'kk' ? 'ЗҚАИ' : 'ИЗПИ'} className="brand-mark" />
-                    <span className="brand-text">
-                        <span className="brand-name">{t('heroTitle')}</span>
-                    </span>
-                </Link>
 
                 {/* Burger button */}
                 <button
@@ -99,7 +96,10 @@ function Header() {
                     <span className="burger-line"></span>
                     <span className="burger-line"></span>
                 </button>
+            </div>
 
+            {/* Нижняя полоса: навигация по разделам, во всю ширину */}
+            <div className="nav-bar">
                 <div className={`nav ${menuOpen ? 'mobile-open' : ''}`} ref={navRef}>
                     <ul>
                         <li className={`dropdown ${openDropdown === 'institute' ? 'mobile-dropdown-open' : ''}`}>
@@ -130,7 +130,7 @@ function Header() {
                         <li><Link to="/Editions">{t('editions')}</Link></li>
                         <li><Link to="/Contacts">{t('contacts')}</Link></li>
 
-                        {/* Язык и вход — в бургер-меню на мобильных, на десктопе они в topbar */}
+                        {/* Язык и вход — в бургер-меню на мобильных, на десктопе они в верхней полосе */}
                         <li className="mobile-only lang-switch-li" onClick={() => switchLanguage(language === 'ru' ? 'kk' : 'ru')}>
                             <span>{language === 'ru' ? 'Қазақша' : 'Русский'}</span>
                         </li>
