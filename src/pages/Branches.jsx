@@ -3,33 +3,24 @@ import { useLanguage } from '../context/useLanguage';
 import Icon from '../components/Icon/Icon';
 import './Branches.css';
 
-// Координаты пинов рассчитаны проекцией реальных координат городов (широта/долгота)
-// в ту же систему координат, что и контур карты в KZ_MAP_VIEWBOX/KZ_MAP_PATH ниже —
-// см. project([lon, lat]) в скрипте генерации, поэтому пины совпадают с реальным
-// положением городов на силуэте Казахстана.
 const branchesData = {
     ru: [
-        { city: "Алматы", region: "Алматинская обл.", address: "ул. Панфилова, 106", phone: "+7 (727) 272-29-63", email: "almaty@zqai.kz", icon: "city", x: 763.02, y: 464.72, activities: "Правовые исследования, экспертная и научно-аналитическая работа, бесплатная юридическая помощь гражданам." },
-        { city: "Актобе", region: "Актюбинская обл.", address: "пр. Абилкайыр хана, 25", phone: "+7 (7132) 54-41-45", email: "aktobe@zqai.kz", icon: "city", x: 281.67, y: 206.52, activities: "Единый государственный учёт НПА региона, консультирование граждан и организаций." },
-        { city: "Тараз", region: "Жамбылская обл.", address: "ул. Колбасшы Койгельды, 158а", phone: "+7 (7262) 45-15-96", email: "taraz@zqai.kz", icon: "city", x: 628.9, y: 476.49, activities: "Мониторинг регионального законодательства, участие в правовых семинарах и круглых столах." },
-        { city: "Қарағанды", region: "Карагандинская обл.", address: "ул. Гоголя, 22а", phone: "+7 (7212) 41-89-20", email: "karaganda@zqai.kz", icon: "hammer", x: 671.52, y: 224.04, activities: "Научно-аналитическая работа, взаимодействие с местными исполнительными органами." },
-        { city: "Қостанай", region: "Костанайская обл.", address: "ул. Аль-Фараби, 43", phone: "+7 (7142) 54-47-56", email: "kostanay@zqai.kz", icon: "wheat", x: 439.85, y: 99.17, activities: "Правовое просвещение населения, экспертиза нормативных правовых актов." },
-        { city: "Семей", region: "Абайская обл.", address: "ул. Утепбаева, 5", phone: "+7 (7222) 35-40-88", email: "semey@zqai.kz", icon: "bookOpen", x: 845.58, y: 201.87, activities: "Научно-правовые исследования, организация мероприятий по праворазъяснительной работе." },
+        { city: "Алматы", region: "Алматинская обл.", address: "ул. Панфилова, 106", phone: "+7 (727) 272-29-63", email: "almaty@zqai.kz", icon: "city", activities: "Правовые исследования, экспертная и научно-аналитическая работа, бесплатная юридическая помощь гражданам." },
+        { city: "Актобе", region: "Актюбинская обл.", address: "пр. Абилкайыр хана, 25", phone: "+7 (7132) 54-41-45", email: "aktobe@zqai.kz", icon: "city", activities: "Единый государственный учёт НПА региона, консультирование граждан и организаций." },
+        { city: "Тараз", region: "Жамбылская обл.", address: "ул. Колбасшы Койгельды, 158а", phone: "+7 (7262) 45-15-96", email: "taraz@zqai.kz", icon: "city", activities: "Мониторинг регионального законодательства, участие в правовых семинарах и круглых столах." },
+        { city: "Қарағанды", region: "Карагандинская обл.", address: "ул. Гоголя, 22а", phone: "+7 (7212) 41-89-20", email: "karaganda@zqai.kz", icon: "hammer", activities: "Научно-аналитическая работа, взаимодействие с местными исполнительными органами." },
+        { city: "Қостанай", region: "Костанайская обл.", address: "ул. Аль-Фараби, 43", phone: "+7 (7142) 54-47-56", email: "kostanay@zqai.kz", icon: "wheat", activities: "Правовое просвещение населения, экспертиза нормативных правовых актов." },
+        { city: "Семей", region: "Абайская обл.", address: "ул. Утепбаева, 5", phone: "+7 (7222) 35-40-88", email: "semey@zqai.kz", icon: "bookOpen", activities: "Научно-правовые исследования, организация мероприятий по праворазъяснительной работе." },
     ],
     kk: [
-        { city: "Алматы", region: "Алматы обл.", address: "Панфилов көш., 106", phone: "+7 (727) 272-29-63", email: "almaty@zqai.kz", icon: "city", x: 763.02, y: 464.72, activities: "Құқықтық зерттеулер, сараптамалық-ғылыми жұмыс, азаматтарға тегін заң көмегін көрсету." },
-        { city: "Ақтөбе", region: "Ақтөбе обл.", address: "Әбілқайыр хан даңғ., 25", phone: "+7 (7132) 54-41-45", email: "aktobe@zqai.kz", icon: "city", x: 281.67, y: 206.52, activities: "Өңір бойынша НҚА-ның бірыңғай мемлекеттік есебі, азаматтар мен ұйымдарға консультация беру." },
-        { city: "Тараз", region: "Жамбыл обл.", address: "Колбасшы Койгельды көш., 158а", phone: "+7 (7262) 45-15-96", email: "taraz@zqai.kz", icon: "city", x: 628.9, y: 476.49, activities: "Өңірлік заңнаманы мониторингілеу, құқықтық семинарлар мен дөңгелек үстелдерге қатысу." },
-        { city: "Қарағанды", region: "Қарағанды обл.", address: "Гоголь көш., 22а", phone: "+7 (7212) 41-89-20", email: "karaganda@zqai.kz", icon: "hammer", x: 671.52, y: 224.04, activities: "Ғылыми-талдамалық жұмыс, жергілікті атқарушы органдармен өзара іс-қимыл." },
-        { city: "Қостанай", region: "Қостанай обл.", address: "Аль-Фараби көш., 43", phone: "+7 (7142) 54-47-56", email: "kostanay@zqai.kz", icon: "wheat", x: 439.85, y: 99.17, activities: "Халықты құқықтық ағарту, нормативтік құқықтық актілерге сараптама жасау." },
-        { city: "Семей", region: "Абай обл.", address: "Утепбаева көш., 5", phone: "+7 (7222) 35-40-88", email: "semey@zqai.kz", icon: "bookOpen", x: 845.58, y: 201.87, activities: "Ғылыми-құқықтық зерттеулер, праворазъяснительная жұмыс бойынша іс-шаралар ұйымдастыру." },
+        { city: "Алматы", region: "Алматы обл.", address: "Панфилов көш., 106", phone: "+7 (727) 272-29-63", email: "almaty@zqai.kz", icon: "city", activities: "Құқықтық зерттеулер, сараптамалық-ғылыми жұмыс, азаматтарға тегін заң көмегін көрсету." },
+        { city: "Ақтөбе", region: "Ақтөбе обл.", address: "Әбілқайыр хан даңғ., 25", phone: "+7 (7132) 54-41-45", email: "aktobe@zqai.kz", icon: "city", activities: "Өңір бойынша НҚА-ның бірыңғай мемлекеттік есебі, азаматтар мен ұйымдарға консультация беру." },
+        { city: "Тараз", region: "Жамбыл обл.", address: "Колбасшы Койгельды көш., 158а", phone: "+7 (7262) 45-15-96", email: "taraz@zqai.kz", icon: "city", activities: "Өңірлік заңнаманы мониторингілеу, құқықтық семинарлар мен дөңгелек үстелдерге қатысу." },
+        { city: "Қарағанды", region: "Қарағанды обл.", address: "Гоголь көш., 22а", phone: "+7 (7212) 41-89-20", email: "karaganda@zqai.kz", icon: "hammer", activities: "Ғылыми-талдамалық жұмыс, жергілікті атқарушы органдармен өзара іс-қимыл." },
+        { city: "Қостанай", region: "Қостанай обл.", address: "Аль-Фараби көш., 43", phone: "+7 (7142) 54-47-56", email: "kostanay@zqai.kz", icon: "wheat", activities: "Халықты құқықтық ағарту, нормативтік құқықтық актілерге сараптама жасау." },
+        { city: "Семей", region: "Абай обл.", address: "Утепбаева көш., 5", phone: "+7 (7222) 35-40-88", email: "semey@zqai.kz", icon: "bookOpen", activities: "Ғылыми-құқықтық зерттеулер, праворазъяснительная жұмыс бойынша іс-шаралар ұйымдастыру." },
     ]
 };
-
-// Контур Казахстана, спроецированный из реальных координат границы (Natural Earth,
-// общественное достояние) в единую систему координат SVG-карты ниже.
-const KZ_MAP_VIEWBOX = '0 0 1040 578';
-const KZ_MAP_PATH = "M619.02,499.67 L605,506.42 L572.74,531.91 L562.04,558.07 L552.93,558.31 L546.23,540.99 L515.13,539.8 L510.16,509.85 L498.24,509.59 L500.07,472.92 L470.79,446.21 L428.85,449.07 L400.18,454.39 L376.83,421.43 L356.81,407.61 L318.91,381.43 L314.34,378.25 L251.39,399.86 L252.35,534.67 L239.81,536.46 L222.69,507.79 L206.17,497.55 L178.41,505.15 L167.6,517.32 L166.23,508.4 L172.24,493.17 L167.58,480.43 L139.24,467.97 L128.2,435.14 L114.7,425.89 L113.88,413.98 L137.67,417.45 L138.61,390.72 L159.41,384.78 L180.77,390.24 L185.17,354.57 L180.81,331.96 L156.34,333.73 L135.56,324.8 L107.24,340.88 L84.43,348.55 L72.01,342.63 L74.49,323.82 L58.9,299.39 L40.76,300.41 L20,275.61 L34.12,247.9 L26.97,240.44 L46.48,200.27 L71.63,221.48 L74.68,194.77 L125.16,155.01 L163.35,154.06 L217.25,179.38 L246.21,194.17 L272.16,178.74 L310.92,178.01 L342.2,196.96 L349.3,186.11 L383.65,187.68 L389.78,170.37 L350.15,145.22 L373.62,127.41 L369.04,117.45 L392.52,107.94 L374.86,82.9 L386.08,70.42 L477.58,57.7 L489.52,48.66 L550.71,35.17 L572.7,20 L616.64,27.88 L624.34,65.77 L649.87,56.88 L681.28,69.35 L679.25,89.3 L702.71,87.22 L764,52.71 L755.05,64.18 L786.25,92.42 L840.89,185.28 L853.92,166.14 L887.61,187.2 L922.75,177.81 L936.25,184.38 L948.02,205.51 L965.12,212.61 L975.53,228.13 L1007.02,223.23 L1020,245.6 L1001.39,269.94 L981.08,273.36 L979.91,310.02 L966.31,326.55 L917.8,314.52 L900.15,379.98 L887.63,388.12 L839.19,402.73 L861.2,466.24 L844.43,475.76 L846.38,496.6 L831.31,491.24 L819.04,478.1 L782.76,474.27 L742.21,473.27 L733.33,477.3 L698.5,461.93 L684.62,469.5 L680.82,491.08 L640.59,478.49 L624.49,483.65 L619.02,499.67 Z";
 
 function useReveal() {
     const ref = useRef(null);
@@ -44,67 +35,43 @@ function useReveal() {
     return [ref, vis];
 }
 
-/* Интерактивная карта РК (реальный контур границы) с метками филиалов */
+/* Карта РК на базе Google Maps (встраивание без API-ключа) с переключением
+   города через список — при выборе города карта Google центрируется на его
+   адресе филиала, без выбора показывает Казахстан целиком. */
 function BranchesMap({ branches, language, activeCity, onPinClick }) {
+    const activeBranch = branches.find((b) => b.city === activeCity);
+    const mapQuery = activeBranch ? `${activeBranch.city}, ${activeBranch.address}` : 'Казахстан';
+    const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&output=embed`;
+
     return (
         <div className="branches-map-wrap">
+            <div className="branches-city-chips">
+                {branches.map((b) => (
+                    <button
+                        key={b.city}
+                        type="button"
+                        className={`branches-city-chip ${activeCity === b.city ? 'active' : ''}`}
+                        onClick={() => onPinClick(b.city)}
+                    >
+                        <Icon name="pin" variant="bare" size={14} />
+                        {b.city}
+                    </button>
+                ))}
+            </div>
             <div className="branches-map-panel">
-                <svg
-                    className="kz-map-svg"
-                    viewBox={KZ_MAP_VIEWBOX}
-                    preserveAspectRatio="xMidYMid meet"
-                    role="img"
-                    aria-label={language === 'kk' ? 'Қазақстан картасы' : 'Карта Казахстана'}
-                >
-                    <defs>
-                        <linearGradient id="kzMapFill" x1="15%" y1="0%" x2="85%" y2="100%">
-                            <stop offset="0%" stopColor="#2c8a61" />
-                            <stop offset="55%" stopColor="#1a6b48" />
-                            <stop offset="100%" stopColor="#0f4a30" />
-                        </linearGradient>
-                        <radialGradient id="kzMapGlow" cx="38%" cy="22%" r="60%">
-                            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.35" />
-                            <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
-                        </radialGradient>
-                        <radialGradient id="kzPinGrad" cx="35%" cy="28%" r="75%">
-                            <stop offset="0%" stopColor="#fdf0ce" />
-                            <stop offset="45%" stopColor="#f0c26b" />
-                            <stop offset="100%" stopColor="#b9812f" />
-                        </radialGradient>
-                        <clipPath id="kzMapClip">
-                            <path d={KZ_MAP_PATH} />
-                        </clipPath>
-                    </defs>
-
-                    <path className="kz-map-path" d={KZ_MAP_PATH} fill="url(#kzMapFill)" />
-                    <path className="kz-map-glow" d={KZ_MAP_PATH} fill="url(#kzMapGlow)" clipPath="url(#kzMapClip)" />
-
-                    {branches.map((b, i) => (
-                        <g
-                            key={i}
-                            className={`kz-map-pin ${activeCity === b.city ? 'active' : ''}`}
-                            transform={`translate(${b.x}, ${b.y})`}
-                            role="button"
-                            tabIndex={0}
-                            onClick={() => onPinClick(b.city)}
-                            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onPinClick(b.city); } }}
-                        >
-                            <title>{b.city}</title>
-                            <circle className="kz-map-pin-hit" cy="-14" r="24" />
-                            <ellipse className="kz-map-pin-shadow" cx="0" cy="2.5" rx="9" ry="3" />
-                            <circle className="kz-map-pin-halo" cx="0" cy="-14" r="15" />
-                            <path className="kz-map-pin-body" d="M -6.5 -9 L 0 3 L 6.5 -9 Z" />
-                            <circle className="kz-map-pin-body" cx="0" cy="-14" r="10.5" />
-                            <circle className="kz-map-pin-shine" cx="-3.4" cy="-17.4" r="2.6" />
-                            <text className="kz-map-pin-label" y="19" textAnchor="middle">{b.city}</text>
-                        </g>
-                    ))}
-                </svg>
+                <iframe
+                    className="branches-map-iframe"
+                    title={language === 'kk' ? 'Қазақстан картасы' : 'Карта Казахстана'}
+                    src={mapSrc}
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    allowFullScreen
+                />
             </div>
             <p className="branches-map-hint">
                 {language === 'kk'
-                    ? 'Қаланы картадан таңдап, тиісті филиал туралы ақпаратқа өтіңіз.'
-                    : 'Выберите город на карте, чтобы перейти к информации о филиале.'}
+                    ? 'Қаланы таңдап, тиісті филиал туралы ақпаратқа өтіңіз.'
+                    : 'Выберите город, чтобы перейти к информации о филиале.'}
             </p>
         </div>
     );
@@ -167,6 +134,7 @@ function Branches() {
     return (
         <div className="branches-page-new">
             <section className="branches-hero">
+                <div className="branches-hero-overlay" />
                 <div ref={heroRef} className={`branches-hero-content ${heroVis ? 'is-visible' : ''}`}>
                     <span className="page-eyebrow">
                         {language === 'kk' ? 'Қазақстан бойынша' : 'По всему Казахстану'}

@@ -187,7 +187,6 @@ function HistoryLLII() {
                 <div className="history-table-container">
                     <div className="history-table">
                         <div className="history-table-header">
-                            <div className="ht-col ht-col-num">№</div>
                             <div className="ht-col ht-col-icon" />
                             <div className="ht-col ht-col-year">{language === 'kk' ? 'Күні' : 'Дата'}</div>
                             <div className="ht-col ht-col-title">{language === 'kk' ? 'Оқиға' : 'Событие'}</div>
@@ -195,9 +194,6 @@ function HistoryLLII() {
                         </div>
                         {timelineData.map((item, index) => (
                             <div key={index} className="history-table-row">
-                                <div className="ht-col ht-col-num">
-                                    <span className="row-number">{index + 1}</span>
-                                </div>
                                 <div className="ht-col ht-col-icon">
                                     <Icon name={item.icon} className="row-icon" />
                                 </div>

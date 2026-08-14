@@ -397,8 +397,6 @@ export default function Main() {
 
             <MilestonesTableSection language={language} />
 
-            <ContactInfoSection language={language} />
-
         </div>
     );
 }
@@ -539,13 +537,11 @@ function MilestonesTableSection({ language }) {
                 <div className="milestones-table-wrapper">
                     <div className="milestones-table">
                         <div className="milestones-table-header">
-                            <div className="mt-col mt-col-num">№</div>
                             <div className="mt-col mt-col-year">{language === 'kk' ? 'Жыл' : 'Год'}</div>
                             <div className="mt-col mt-col-event">{language === 'kk' ? 'Оқиға' : 'Событие'}</div>
                         </div>
                         {milestones.map((m, i) => (
                             <div key={i} className="milestones-table-row">
-                                <div className="mt-col mt-col-num">{i + 1}</div>
                                 <div className="mt-col mt-col-year"><strong>{m.year}</strong></div>
                                 <div className="mt-col mt-col-event">{m.event}</div>
                             </div>
@@ -562,45 +558,3 @@ function MilestonesTableSection({ language }) {
     );
 }
 
-function ContactInfoSection({ language }) {
-    return (
-        <section className="contact-info-section">
-            <div className="section-container">
-                <div className="section-header">
-                    <h2>{language === 'kk' ? 'Байланыс ақпараты' : 'Контактная информация'}</h2>
-                </div>
-                <div className="contact-info-grid">
-                    <div className="contact-info-block">
-                        <h3>{language === 'kk' ? 'Құқықтық ақпараттық қызмет' : 'Правовая информационная служба'}</h3>
-                        <p>{language === 'kk' ? 'Азаматтарға тәулік бойы тегін заңгерлік кеңес беру' : 'Бесплатные юридические консультации для граждан — круглосуточно'}</p>
-                        <ul className="contact-list">
-                            <li><strong>{language === 'kk' ? 'Телефон' : 'Телефон'}:</strong> <a href="tel:+77172580058">+7 (7172) 58-00-58</a></li>
-                            <li><strong>Telegram:</strong> <a href="https://t.me/119KenesBot" target="_blank" rel="noopener noreferrer">@119KenesBot</a></li>
-                            <li><strong>E-mail:</strong> <a href="mailto:npa@zqai.kz">npa@zqai.kz</a></li>
-                        </ul>
-                    </div>
-                    <div className="contact-info-block">
-                        <h3>{language === 'kk' ? 'Ресми сілтемелер' : 'Официальные ссылки'}</h3>
-                        <ul className="contact-list">
-                            <li>
-                                <a href="https://www.gov.kz/memleket/entities/adilet" target="_blank" rel="noopener noreferrer">
-                                    {language === 'kk' ? 'ҚР Әділет министрлігі' : 'Министерство юстиции РК'} →
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://adilet.zan.kz" target="_blank" rel="noopener noreferrer">
-                                    {language === 'kk' ? '«Әділет» ақпараттық-құқықтық жүйесі' : 'ИПС «Әділет»'} →
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://zan.gov.kz/" target="_blank" rel="noopener noreferrer">
-                                    {language === 'kk' ? 'НҚА Эталондық банкі' : 'Эталонный банк НПА'} →
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-    );
-}

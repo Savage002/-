@@ -1081,7 +1081,7 @@
 
 .milestones-table-header {
     display: grid;
-    grid-template-columns: 50px 100px 1fr;
+    grid-template-columns: 100px 1fr;
     background: var(--navy-950);
     color: #fff;
     font-size: 0.8rem;
@@ -1101,7 +1101,7 @@
 
 .milestones-table-row {
     display: grid;
-    grid-template-columns: 50px 100px 1fr;
+    grid-template-columns: 100px 1fr;
     border-bottom: 1px solid #e8ecf0;
     opacity: 0;
     transform: translateY(8px);
@@ -1138,13 +1138,6 @@
     border-right: none;
 }
 
-.mt-col-num {
-    justify-content: center;
-    color: #8a9aaa;
-    font-weight: 600;
-    font-size: 0.82rem;
-}
-
 .mt-col-year strong {
     color: var(--gold-500);
     font-weight: 700;
@@ -1174,79 +1167,6 @@
 .btn-gov-link:hover {
     background: var(--gold-500);
     color: var(--navy-950);
-}
-
-/* ── CONTACT INFO ────────────────────────────────── */
-.contact-info-section {
-    background: var(--navy-950);
-    color: #e0e4e8;
-    border-top: 3px solid var(--gold-500);
-}
-
-.contact-info-section .section-header h2 {
-    color: #fff;
-}
-
-.contact-info-section .section-header h2::after {
-    background: var(--gold-500);
-}
-
-.contact-info-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-}
-
-.contact-info-block {
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-    padding: 1.75rem;
-}
-
-.contact-info-block h3 {
-    font-size: 1rem;
-    font-weight: 700;
-    color: #fff;
-    margin-bottom: 0.5rem;
-}
-
-.contact-info-block > p {
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.6);
-    margin-bottom: 1rem;
-    line-height: 1.5;
-}
-
-.contact-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.contact-list li {
-    padding: 0.4rem 0;
-    font-size: 0.88rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.contact-list li:last-child {
-    border-bottom: none;
-}
-
-.contact-list a {
-    color: var(--steel-300);
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-.contact-list a:hover {
-    color: #fff;
-    text-decoration: underline;
-}
-
-.contact-list strong {
-    color: rgba(255, 255, 255, 0.8);
 }
 
 /* ── Responsive ───────────────────────────────────── */
@@ -1392,7 +1312,7 @@
 
     .milestones-table-header,
     .milestones-table-row {
-        grid-template-columns: 30px 60px 1fr;
+        grid-template-columns: 60px 1fr;
     }
 
     .milestones-table-header .mt-col,
