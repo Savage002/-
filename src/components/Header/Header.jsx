@@ -85,7 +85,6 @@ function Header() {
                 <Link to="/" className="brand">
                     <img src={logo} alt={language === 'kk' ? 'ЗҚАИ' : 'ИЗПИ'} className="brand-mark" />
                     <span className="brand-text">
-                        <strong>{language === 'kk' ? 'ЗҚАИ' : 'ИЗПИ'}</strong>
                         <span className="brand-name">{t('heroTitle')}</span>
                     </span>
                 </Link>

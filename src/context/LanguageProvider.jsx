@@ -4,7 +4,7 @@ import { translations } from '../translations';
 
 function loadStoredLanguage() {
     const stored = localStorage.getItem('language');
-    return stored && ['ru', 'kk'].includes(stored) ? stored : 'ru';
+    return stored && ['ru', 'kk'].includes(stored) ? stored : 'kk';
 }
 
 export const LanguageProvider = ({ children }) => {

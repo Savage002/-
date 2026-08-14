@@ -251,55 +251,77 @@
     gap: 1rem;
 }
 
-.branches-city-chips {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.6rem;
-    max-width: 900px;
-}
-
-.branches-city-chip {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.5rem 1.1rem;
-    border-radius: 20px;
-    border: 1px solid #dfe6e2;
-    background: #fff;
-    color: var(--navy-900);
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.15s, border-color 0.15s, color 0.15s;
-}
-
-.branches-city-chip:hover {
-    border-color: var(--gold-500);
-    color: var(--gold-600, #ab8130);
-}
-
-.branches-city-chip.active {
-    background: var(--navy-900);
-    border-color: var(--navy-900);
-    color: #fff;
-}
-
 .branches-map-panel {
     width: 100%;
-    max-width: 900px;
-    background: #fff;
+    max-width: 760px;
+    background: linear-gradient(135deg, #ffffff 0%, #eef3f0 100%);
     border: 1px solid #dfe6e2;
     border-radius: 18px;
     box-shadow: 0 10px 30px rgba(11, 46, 89, 0.06);
-    overflow: hidden;
+    padding: 1.5rem;
 }
 
-.branches-map-iframe {
+/* Карта РК (SVG-файл заказчика, src/assets/kazakhstan_map.svg) */
+.kz-map-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1000 / 549;
+}
+
+.kz-map-img {
     display: block;
     width: 100%;
-    height: 420px;
-    border: 0;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 8px 18px rgba(11, 46, 89, 0.16));
+}
+
+.kz-map-pin {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    transform: translate(-50%, -100%);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.kz-map-pin-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50% 50% 50% 0;
+    background: radial-gradient(circle at 35% 28%, #fdf0ce, #f0c26b 45%, #b9812f 100%);
+    border: 2px solid #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+    transform: rotate(-45deg);
+    transition: box-shadow 0.15s, transform 0.15s;
+}
+
+.kz-map-pin-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    color: #fff;
+    background: rgba(11, 46, 89, 0.88);
+    padding: 1px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.kz-map-pin:hover .kz-map-pin-dot,
+.kz-map-pin.active .kz-map-pin-dot,
+.kz-map-pin:focus-visible .kz-map-pin-dot {
+    box-shadow: 0 0 0 4px rgba(240, 194, 107, 0.4), 0 2px 6px rgba(0, 0, 0, 0.4);
+    transform: rotate(-45deg) scale(1.1);
+}
+
+.kz-map-pin.active .kz-map-pin-label,
+.kz-map-pin:focus-visible .kz-map-pin-label {
+    background: var(--gold-600, #ab8130);
 }
 
 .branches-map-hint {
@@ -375,11 +397,8 @@
 
 @media (max-width: 768px) {
     .branches-map-panel {
+        padding: 1rem;
         border-radius: 14px;
-    }
-
-    .branches-map-iframe {
-        height: 320px;
     }
 }
 
